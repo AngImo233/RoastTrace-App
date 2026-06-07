@@ -2,13 +2,21 @@
 
 This file records public RoastTrace web app updates.
 
-## v48 - 2026-06-07
+## V1 - 2026-06-08
+
+- Marked the current public app as version V1.
+- Replaced "Open public app" with a real "Check for updates" button.
+- Added "Copy app link" on the About / Feedback page.
+- Added `version.json` so future releases can be detected by the app.
+- Updated cached assets to v49 so the update controls load correctly.
+
+## Pre-release v48 - 2026-06-07
 
 - Added a public RoastTrace App QR code on the About / Feedback page.
 - Added buttons for opening the public web app and viewing the public GitHub repository.
 - Updated cached assets to v48 so the new QR image can load after app updates.
 
-## v47 - 2026-06-07
+## Pre-release v47 - 2026-06-07
 
 - Published the first public GitHub Pages build of RoastTrace.
 - Added complete local data backup and restore.
