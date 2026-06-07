@@ -329,12 +329,16 @@ p { margin: 0; }
 .about-info span { color: var(--muted); font-size: 12px; font-weight: 800; }
 .about-info strong { min-width: 0; color: var(--coffee); text-align: right; overflow-wrap: anywhere; }
 .feedback-card { display: grid; gap: 14px; padding: 17px; border: 1px solid rgba(189,117,68,.25); border-radius: 22px; background: var(--coffee); color: #fff8ef; box-shadow: 0 14px 28px rgba(72,46,34,.14); }
+.feedback-card.public-card { background: linear-gradient(145deg,#fffaf3,#efe0cf); color: var(--coffee); }
 .feedback-card h2 { color: #fff8ef; font-size: 25px; }
+.feedback-card.public-card h2 { color: var(--coffee); }
 .feedback-card p { margin-top: 6px; color: #dbc7b7; font-size: 13px; line-height: 1.6; }
+.feedback-card.public-card p { color: var(--muted); }
 .feedback-card > img { justify-self: center; width: min(220px, 72vw); padding: 12px; border-radius: 18px; background: #fffaf3; }
 .feedback-actions { display: grid; gap: 9px; }
 .link-button { display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 14px; font-weight: 850; text-decoration: none; }
 .feedback-actions .secondary { background: rgba(255,255,255,.12); color: #fff8ef; border-color: rgba(255,255,255,.22); }
+.public-card .feedback-actions .secondary { background: var(--paper-deep); color: var(--coffee); }
 .chart-card { overflow: hidden; padding: 12px 10px 10px; border: 1px solid var(--line); border-radius: 18px; background: var(--cream); }
 .chart-legend { display: flex; gap: 15px; padding: 2px 7px 8px; font-size: 11px; font-weight: 800; }
 .chart-legend span::before { display: inline-block; width: 16px; height: 3px; margin-right: 6px; border-radius: 3px; content: ""; vertical-align: middle; }
