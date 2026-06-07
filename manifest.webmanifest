@@ -1,0 +1,18 @@
+{
+  "name": "RoastTrace · 咖啡烘焙记录",
+  "short_name": "RoastTrace",
+  "description": "适合精品咖啡工作流的离线咖啡烘焙记录工具",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4efe7",
+  "theme_color": "#f4efe7",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon-roastlog.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
