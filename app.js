@@ -97,6 +97,36 @@ const toast = (message) => {
   document.body.append(el);
   setTimeout(() => el.remove(), 1800);
 };
+const displayMode = () => {
+  if (window.matchMedia?.("(display-mode: standalone)").matches || navigator.standalone) return "standalone";
+  return "browser";
+};
+const analyticsEnabled = () => /^G-[A-Z0-9]+$/i.test(ANALYTICS_MEASUREMENT_ID) && location.protocol === "https:";
+function trackEvent(name, params = {}) {
+  if (!analyticsEnabled() || typeof window.gtag !== "function") return;
+  window.gtag("event", name, {
+    app_version: APP_VERSION,
+    display_mode: displayMode(),
+    ...params
+  });
+}
+function setupAnalytics() {
+  if (!analyticsEnabled()) return;
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_MEASUREMENT_ID}`;
+  document.head.append(script);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag(){ window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", ANALYTICS_MEASUREMENT_ID, {
+    anonymize_ip: true,
+    send_page_view: true,
+    app_version: APP_VERSION,
+    display_mode: displayMode()
+  });
+  trackEvent("app_open");
+}
 
 function shell(content, route = state.route) {
   const nav = route === "live" || route === "new" || route === "manual" || route === "machine-edit" || route === "bean-edit" || route === "about" ? "" : `
@@ -212,6 +242,7 @@ const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
 const APP_VERSION = "V1";
+const ANALYTICS_MEASUREMENT_ID = "";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
     <form id="live-machine-form" class="live-machine-sheet">
@@ -240,7 +271,7 @@ const translations = {
   }
 };
 Object.assign(translations.en, {
-  "完整数据备份":"Complete data backup","固定网址":"Fixed URL","只要网址不变，更新软件后本机数据会自动保留。备份用于换手机、换网址或误删后的恢复。":"As long as the URL stays the same, local data remains after app updates. Use backup when changing phones, changing URLs, or recovering deleted data.","备份全部数据":"Back up all data","恢复备份":"Restore backup","备份已生成":"Backup created","备份已恢复":"Backup restored","备份文件无效":"Invalid backup file","公开版本":"Public version","扫码打开 RoastTrace":"Scan to open RoastTrace","这个二维码会打开公开网页版 App。用户可以添加到 iPhone 主屏幕。":"This QR code opens the public web app. Users can add it to the iPhone Home Screen.","检查更新":"Check for updates","复制 App 链接":"Copy app link","查看 GitHub":"View GitHub","App 链接已复制":"App link copied","已经是最新版本":"Already up to date","暂时无法检查更新":"Unable to check for updates"
+  "完整数据备份":"Complete data backup","固定网址":"Fixed URL","只要网址不变，更新软件后本机数据会自动保留。备份用于换手机、换网址或误删后的恢复。":"As long as the URL stays the same, local data remains after app updates. Use backup when changing phones, changing URLs, or recovering deleted data.","备份全部数据":"Back up all data","恢复备份":"Restore backup","备份已生成":"Backup created","备份已恢复":"Backup restored","备份文件无效":"Invalid backup file","公开版本":"Public version","扫码打开 RoastTrace":"Scan to open RoastTrace","这个二维码会打开公开网页版 App。用户可以添加到 iPhone 主屏幕。":"This QR code opens the public web app. Users can add it to the iPhone Home Screen.","检查更新":"Check for updates","复制 App 链接":"Copy app link","查看 GitHub":"View GitHub","App 链接已复制":"App link copied","已经是最新版本":"Already up to date","暂时无法检查更新":"Unable to check for updates","匿名访问统计":"Anonymous usage analytics","只统计打开次数和主屏幕打开，不上传烘焙数据。":"Counts app opens and Home Screen opens only. Roast data is not uploaded.","待配置":"Needs setup"
 });
 Object.assign(translations.ja, {
   "快速开始":"クイックスタート","新建烘焙记录":"新規焙煎記録","计时、发展秒表、分钟温度与关键节点都在同一个页面。":"タイマー、デベロップメント、1分ごとの温度、重要イベントを1画面で記録できます。","离线保存":"オフライン保存","单手记录":"片手で記録","曲线报告":"カーブレポート","开始新批次":"新しいバッチを開始","手动记录":"手動入力","最近批次":"最近のバッチ","新建文件夹":"フォルダ作成","删除文件夹":"フォルダ削除","全部":"すべて","未分类":"未分類","还没有完成的批次。":"完了したバッチはまだありません。","第一炉数据会从这里开始积累。":"最初のバッチからここに蓄積されます。",
@@ -253,7 +284,7 @@ Object.assign(translations.ja, {
   "iPhone 会打开打印页面。在预览图上双指放大，再点分享按钮，即可保存 PDF 到“文件”或发送给别人。":"iPhone でプリント画面が開きます。プレビューを二本指で拡大し、共有ボタンから PDF を“ファイル”へ保存または送信できます。",
   "设置":"設定","语言":"言語","简体中文":"簡体字中国語","日本語":"日本語","界面语言":"表示言語","咖啡豆档案":"コーヒー豆ライブラリ","新增豆子":"豆を追加","烘焙机":"焙煎機","新增":"追加","保存":"保存","批次对比":"バッチ比較","批次 A":"バッチ A","批次 B":"バッチ B",
   "关于与反馈":"アプリ情報・フィードバック","开发者信息、邮箱、反馈表单。":"開発者情報、メール、フィードバックフォーム。","反馈与联系":"フィードバック・連絡","发送反馈":"フィードバックを送る","邮件联系":"メールで連絡","扫码发送反馈":"QRコードでフィードバック","只有开发者能看到你的反馈，其他用户不会看到你的消息。":"フィードバックは開発者だけが確認できます。他のユーザーには表示されません。","开发者":"開発者","邮箱":"メール","打开反馈表单":"フォームを開く","公开版本":"公開版","扫码打开 RoastTrace":"QRコードで RoastTrace を開く","这个二维码会打开公开网页版 App。用户可以添加到 iPhone 主屏幕。":"このQRコードから公開Webアプリを開けます。iPhoneのホーム画面に追加できます。","检查更新":"アップデート確認","复制 App 链接":"アプリリンクをコピー","查看 GitHub":"GitHubを見る","App 链接已复制":"アプリリンクをコピーしました","已经是最新版本":"最新版です","暂时无法检查更新":"アップデートを確認できません",
-  "现在离线记录，":"まずはオフラインで記録し、","以后再扩展同步。":"同期機能は今後追加します。","本地保存":"ローカル保存","当前数据仅保存在这台设备，不依赖网络。":"現在のデータはこの端末内だけに保存され、ネット接続は不要です。","PDF 报告":"PDF レポート","批次详情中可生成包含曲线、表格和总结的报告。":"バッチ詳細から、カーブ・表・まとめを含むレポートを作成できます。","iCloud 同步":"iCloud 同期","后续版本加入。":"今後のバージョンで追加します。","CSV 导入与导出":"CSV 読み込み・書き出し","纸张录入页面可导入，批次详情可下载当前批次数据。":"手動入力画面で読み込み、バッチ詳細で現在のデータを書き出せます。","完整数据备份":"完全データバックアップ","固定网址":"固定URL","只要网址不变，更新软件后本机数据会自动保留。备份用于换手机、换网址或误删后的恢复。":"URL が変わらなければ、アプリ更新後も端末内データは自動的に残ります。バックアップは機種変更、URL変更、誤削除からの復元に使います。","备份全部数据":"すべてのデータをバックアップ","恢复备份":"バックアップを復元","备份已生成":"バックアップを作成しました","备份已恢复":"バックアップを復元しました","备份文件无效":"バックアップファイルが無効です","语言偏好保存在本机，常用界面会随选择切换。":"言語設定は端末内に保存され、画面表示に反映されます。",
+  "现在离线记录，":"まずはオフラインで記録し、","以后再扩展同步。":"同期機能は今後追加します。","本地保存":"ローカル保存","当前数据仅保存在这台设备，不依赖网络。":"現在のデータはこの端末内だけに保存され、ネット接続は不要です。","PDF 报告":"PDF レポート","批次详情中可生成包含曲线、表格和总结的报告。":"バッチ詳細から、カーブ・表・まとめを含むレポートを作成できます。","iCloud 同步":"iCloud 同期","后续版本加入。":"今後のバージョンで追加します。","CSV 导入与导出":"CSV 読み込み・書き出し","纸张录入页面可导入，批次详情可下载当前批次数据。":"手動入力画面で読み込み、バッチ詳細で現在のデータを書き出せます。","匿名访问统计":"匿名アクセス解析","只统计打开次数和主屏幕打开，不上传烘焙数据。":"起動回数とホーム画面起動のみを集計し、焙煎データはアップロードしません。","待配置":"未設定","完整数据备份":"完全データバックアップ","固定网址":"固定URL","只要网址不变，更新软件后本机数据会自动保留。备份用于换手机、换网址或误删后的恢复。":"URL が変わらなければ、アプリ更新後も端末内データは自動的に残ります。バックアップは機種変更、URL変更、誤削除からの復元に使います。","备份全部数据":"すべてのデータをバックアップ","恢复备份":"バックアップを復元","备份已生成":"バックアップを作成しました","备份已恢复":"バックアップを復元しました","备份文件无效":"バックアップファイルが無効です","语言偏好保存在本机，常用界面会随选择切换。":"言語設定は端末内に保存され、画面表示に反映されます。",
   "打开":"開く","关闭":"閉じる","开始":"開始","保存节点":"イベントを保存","保存并结束烘焙":"保存して焙煎を完了","固定温度":"固定温度","可选":"任意","说明":"説明","过程备注":"工程メモ","结束总结":"まとめ","保存文字":"メモを保存","档案名称":"表示名","产地类型":"生産地の種類","处理厂 / 合作社 / 农园名称":"精製所・組合・農園名","风味与备注":"風味・メモ","国家":"国","产区":"地域","海拔":"標高","产地":"生産地","处理厂 / 合作社":"精製所 / 組合","农园 / 庄园":"農園 / エステート","生产者 / 社区":"生産者 / コミュニティ","其他":"その他",
   "不同机器，":"焙煎機ごとに、","使用不同的判断规则。":"異なる判断ルールを使う。","美拉德阈值":"メイラードしきい値","按温度记录":"温度で記録","手动标记":"手動で記録","美拉德反应的计算方式因烘焙机与工作习惯而异。这里保存的是每台机器的默认记录规则，烘焙进行中仍可手动点击节点。":"メイラードの判断方法は焙煎機や作業スタイルで異なります。ここでは各焙煎機の既定ルールを保存し、焙煎中も手動でイベントを記録できます。",
   "搜索国家、处理厂、农园、品种、处理法…":"国、ステーション、農園、品種、精製方法を検索…","按国家":"国別","按品种":"品種別","国家文件夹":"国別フォルダ","品种文件夹":"品種別フォルダ","条结果":"件","没有匹配的咖啡豆。":"一致するコーヒー豆はありません。",
@@ -1071,6 +1102,7 @@ function settings() {
       <article class="machine-row"><div><h3>PDF 报告</h3><small>批次详情中可生成包含曲线、表格和总结的报告。</small></div><span class="tag">已启用</span></article>
       <article class="machine-row"><div><h3>iCloud 同步</h3><small>后续版本加入。</small></div><span class="tag">规划中</span></article>
       <article class="machine-row"><div><h3>CSV 导入与导出</h3><small>纸张录入页面可导入，批次详情可下载当前批次数据。</small></div><span class="tag">已启用</span></article>
+      <article class="machine-row"><div><h3>匿名访问统计</h3><small>只统计打开次数和主屏幕打开，不上传烘焙数据。</small></div><span class="tag">${analyticsEnabled() ? "已启用" : "待配置"}</span></article>
     </div></section>
     <section class="section"><div class="backup-card">
       <div><span class="tag">固定网址</span><h2>完整数据备份</h2><p>只要网址不变，更新软件后本机数据会自动保留。备份用于换手机、换网址或误删后的恢复。</p></div>
@@ -1459,5 +1491,6 @@ function bind() {
   document.querySelector('[name="compareB"]')?.addEventListener("change", (e) => { state.compareB = e.target.value; save(); render(); });
 }
 
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=49");
+setupAnalytics();
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=50");
 render();
