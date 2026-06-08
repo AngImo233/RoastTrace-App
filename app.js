@@ -242,7 +242,7 @@ const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
 const APP_VERSION = "V1";
-const ANALYTICS_MEASUREMENT_ID = "";
+const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
     <form id="live-machine-form" class="live-machine-sheet">
@@ -1492,5 +1492,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=50");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=51");
 render();

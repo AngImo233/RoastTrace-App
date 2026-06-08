@@ -4,9 +4,10 @@ This file records public RoastTrace web app updates.
 
 ## V1 - 2026-06-08
 
-- Added a disabled Google Analytics 4 hook for simple anonymous app-open statistics.
+- Enabled Google Analytics 4 with measurement ID `G-H4G7309WFC`.
+- Analytics tracks app opens and display mode only; roast data is not uploaded.
+- Added a Google Analytics 4 hook for simple anonymous app-open statistics.
 - Added a settings row explaining anonymous analytics status.
-- Analytics remains inactive until a valid `G-...` measurement ID is configured.
 - Marked the current public app as version V1.
 - Replaced "Open public app" with a real "Check for updates" button.
 - Added "Copy app link" on the About / Feedback page.
