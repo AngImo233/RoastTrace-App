@@ -1,5 +1,5 @@
 {
-  "version": "V1.4",
+  "version": "V1.5",
   "releasedAt": "2026-06-12",
-  "notes": "PDF save titles now use the bean name, YYYYMMDD date, and batch number."
+  "notes": "PDF printing now opens a dedicated titled report page so iPhone save names can use the bean, date, and batch title."
 }

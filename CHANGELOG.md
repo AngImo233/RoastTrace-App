@@ -2,6 +2,11 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.5 - 2026-06-12
+
+- PDF generation now opens a dedicated titled report document before printing, so iPhone save/share flows can use the bean, date, and batch title instead of the app name.
+- Updated cached assets to v57 so existing users can detect and load this release.
+
 ## V1.4 - 2026-06-12
 
 - PDF save titles now use the English bean name, compact date, and batch number, for example `Ethiopia Samii Heirloom 20260612 #1`.

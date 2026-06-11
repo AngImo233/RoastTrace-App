@@ -271,7 +271,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.4";
+const APP_VERSION = "V1.5";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -643,6 +643,21 @@ function printReport(batch, entries, events, metrics) {
   </article>`;
 }
 
+function printDocument(title, reportHtml) {
+  const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+    .map((link) => `<link rel="stylesheet" href="${esc(new URL(link.getAttribute("href"), location.href).href)}">`)
+    .join("");
+  const printWindow = window.open("", "_blank");
+  if (!printWindow) {
+    document.title = title;
+    setTimeout(() => window.print(), 0);
+    return;
+  }
+  printWindow.document.open();
+  printWindow.document.write(`<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title>${styles}</head><body><main class="app-shell">${reportHtml}</main><script>window.addEventListener("load",()=>setTimeout(()=>{window.focus();window.print();},350));<\/script></body></html>`);
+  printWindow.document.close();
+}
+
 function eventEditor(name) {
   const existing = state.active.entries.find((item) => name === "美拉德" ? String(item.event).includes(name) : item.event === name);
   const fixedMaillard = name.includes("美拉德");
@@ -951,8 +966,11 @@ function printBatchPdf() {
   if (!batch) return;
   saveBatchSummary(false);
   render();
-  document.title = batchFileName(batch);
-  setTimeout(() => window.print(), 0);
+  const title = batchFileName(batch);
+  document.title = title;
+  const report = document.querySelector(".print-report")?.outerHTML;
+  if (report) printDocument(title, report);
+  else setTimeout(() => window.print(), 0);
 }
 
 function backupState() {
@@ -1624,5 +1642,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=56");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=57");
 render();
