@@ -1,5 +1,5 @@
 {
-  "version": "V1",
-  "releasedAt": "2026-06-08",
-  "notes": "First public version"
+  "version": "V1.3",
+  "releasedAt": "2026-06-12",
+  "notes": "PDF save titles now keep a detailed country, variety, process, date, and batch filename."
 }

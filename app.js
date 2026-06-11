@@ -271,7 +271,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1";
+const APP_VERSION = "V1.3";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -561,6 +561,85 @@ function targetCompareCard(batch, actual = {}) {
   return `<section class="section"><div class="section-head"><h2>目标设定</h2><span class="subtle">目标 / 实际</span></div><div class="target-compare">${values.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b><strong>${esc(actuals[label])}</strong></div>`).join("")}</div></section>`;
 }
 
+function filledPairs(pairs = []) {
+  return pairs.filter(([, value]) => String(value ?? "").trim());
+}
+
+function safeFilePart(value = "") {
+  return String(value || "")
+    .trim()
+    .replace(/[\\/:*?"<>|#%{}~&]/g, "-")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "") || "unknown";
+}
+
+function batchFileName(batch) {
+  const b = bean(batch.beanId);
+  const parts = [
+    ["country", b.country],
+    ["variety", b.variety || b.name],
+    ["process", b.process],
+    ["date", normalizedDate(batch.date || isoToday())],
+    ["batch", batch.roastNo || "x"]
+  ];
+  return ["RoastTrace", ...parts.map(([label, value]) => `${label}-${safeFilePart(value)}`)].join("_");
+}
+
+function printNoteBlocks(batch) {
+  const blocks = filledPairs([
+    ["过程备注", batch.note],
+    ["结束总结", batch.summary],
+    ["风味标签", batch.flavorTags],
+    ["杯测记录", batch.cuppingNote]
+  ]);
+  return blocks.length ? `<section class="print-notes">${blocks.map(([label, value]) => `<div><h3>${esc(label)}</h3><p>${esc(value)}</p></div>`).join("")}</section>` : "";
+}
+
+function printReport(batch, entries, events, metrics) {
+  const b = bean(batch.beanId), m = machine(batch.machineId);
+  const info = filledPairs([
+    ["国家 / 产区", `${b.country} · ${b.region}`],
+    [b.locationType || "产地", placeName(b)],
+    ["品种", b.variety],
+    ["处理法", b.process],
+    ["烘焙机", m.name],
+    ["日期", displayDate(batch.date)],
+    ["炉次", `#${batch.roastNo || "?"}`],
+    ["烘焙度", batch.roastStyle],
+    ["投入温度", batch.chargeTemp ? `${batch.chargeTemp}°C` : ""],
+    ["投入量", batch.chargeWeight ? `${batch.chargeWeight} g` : ""],
+    ["失重率", batch.lossRate ? `${batch.lossRate}%` : ""]
+  ]);
+  const targets = targetValues(batch);
+  const keyEvents = events.filter((entry) => ["最低温度", "美拉德", "一爆", "出豆"].some((name) => String(entry.event).includes(name)));
+  const tempRows = entries.filter((entry) => entry.temperature).slice(0, 18);
+  return `<article class="print-only print-report">
+    <header class="print-report-head">
+      <div><small>RoastTrace Report</small><h1>${esc(b.name)}</h1><p>${esc(b.country)} · ${esc(b.variety)} · ${esc(b.process)} · ${displayDate(batch.date)} · #${esc(batch.roastNo || "?")}</p></div>
+      <strong>${esc(APP_VERSION)}</strong>
+    </header>
+    <section class="print-kpis">
+      ${metrics.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}
+    </section>
+    <div class="print-grid">
+      <div class="print-main">
+        <section class="print-chart">${roastChart(entries)}</section>
+        ${printNoteBlocks(batch)}
+      </div>
+      <aside class="print-side">
+        <section class="print-info">${info.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}</section>
+        ${targets.length ? `<section class="print-targets"><h2>目标 / 实际</h2>${targets.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}</section>` : ""}
+        <section class="print-events"><h2>关键节点</h2>${keyEvents.length ? keyEvents.map((entry) => `<div><span>${esc(eventLabel(entry.event))}</span><b>${fmt(entry.seconds)}${entry.temperature ? ` · ${esc(entry.temperature)}°C` : ""}</b></div>`).join("") : `<p>未记录</p>`}</section>
+      </aside>
+    </div>
+    <section class="print-table">
+      <h2>温度记录</h2>
+      <div>${tempRows.map((entry) => `<span>${fmt(entry.seconds)}</span><b>${esc(entry.temperature)}°C</b><em>${esc(eventLabel(entry.event))}</em>`).join("")}</div>
+    </section>
+  </article>`;
+}
+
 function eventEditor(name) {
   const existing = state.active.entries.find((item) => name === "美拉德" ? String(item.event).includes(name) : item.event === name);
   const fixedMaillard = name.includes("美拉德");
@@ -639,19 +718,25 @@ function batchDetail() {
     .filter((item) => item.beanId === batch.beanId && item.id !== batch.id)
     .sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0))
     .slice(0, 6);
+  const low = events.find((entry) => entry.event === "最低温度");
   const crack = events.find((entry) => entry.event === "一爆");
   const drop = events.find((entry) => entry.event === "出豆");
   const development = crack && drop && drop.seconds >= crack.seconds ? fmt(drop.seconds - crack.seconds) : "—";
+  const metrics = [
+    ["总时间", fmt(batch.duration)],
+    ["最低温度", low ? `${fmt(low.seconds)} · ${low.temperature ? `${low.temperature}°C` : "—"}` : "—"],
+    ["发展时间", development],
+    ["烘焙度", batch.roastStyle || "浅烘"]
+  ];
   return shell(`${backBar("批次详情", '<button class="text-btn accent print-hide" data-print>生成 PDF</button>')}
+    <div class="screen-report">
     <div class="eyebrow">Roast Summary</div>
     <h1>${esc(b.name)}</h1>
     <p class="detail-origin">${esc(b.country)} · ${esc(b.region)} · ${esc(placeName(b))}</p>
     <p class="detail-batch-no">${displayDate(batch.date)} · ${esc(batch.roastStyle || "浅烘")} · #${esc(batch.roastNo || "?")} · ▰ ${esc(batch.folder || "未分类")}</p>
     <section class="detail-folder print-hide"><label><span>文件夹</span><select data-batch-folder>${state.folders.map((folder) => `<option value="${esc(folder)}" ${folder === (batch.folder || "未分类") ? "selected" : ""}>${esc(folder)}</option>`).join("")}</select></label><button class="section-link" data-edit-batch="${batch.id}">编辑数据</button></section>
     <section class="summary-hero">
-      <div><span>总时间</span><strong>${fmt(batch.duration)}</strong></div>
-      <div><span>烘焙度</span><strong>${esc(batch.roastStyle || "浅烘")}</strong></div>
-      <div><span>发展时间</span><strong>${development}</strong></div>
+      ${metrics.map(([label, value]) => `<div><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`).join("")}
     </section>
     ${targetCompareCard(batch, { crack: crack ? fmt(crack.seconds) : "—", drop: drop ? fmt(drop.seconds) : "—", development })}
     <section class="section">
@@ -707,7 +792,9 @@ function batchDetail() {
       <button class="primary" data-print>生成完整 PDF 报告</button>
       <button class="secondary export-button" data-export-csv>下载当前批次 CSV</button>
       <p class="subtle pdf-help">iPhone 会打开打印页面。在预览图上双指放大，再点分享按钮，即可保存 PDF 到“文件”或发送给别人。</p>
-    </section>`, "batch-detail");
+    </section>
+    </div>
+    ${printReport(batch, entries, events, metrics)}`, "batch-detail");
 }
 
 function sameBeanCard(batch) {
@@ -856,6 +943,15 @@ function exportBatchCsv() {
   toast("CSV 已生成");
 }
 
+function printBatchPdf() {
+  const batch = state.batches.find((item) => item.id === state.detailBatchId);
+  if (!batch) return;
+  saveBatchSummary(false);
+  render();
+  document.title = batchFileName(batch);
+  setTimeout(() => window.print(), 0);
+}
+
 function backupState() {
   const data = clone(state);
   Object.assign(data, {
@@ -943,20 +1039,21 @@ async function clearAppCache() {
   }
 }
 
+async function reloadLatestApp() {
+  await clearAppCache();
+  const url = new URL(location.href);
+  url.searchParams.set("refresh", Date.now());
+  location.replace(url.toString());
+}
+
 async function checkForUpdate() {
   try {
     const response = await fetch(`./version.json?ts=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error("Version check failed");
     const remote = await response.json();
     const latest = remote.version || APP_VERSION;
-    if (latest === APP_VERSION) {
-      toast("已经是最新版本");
-      return;
-    }
-    if (confirm(`发现新版本 ${latest}，现在重新载入吗？本机数据会保留。`)) {
-      await clearAppCache();
-      location.reload();
-    }
+    toast(latest === APP_VERSION ? "正在重新载入最新内容" : `发现新版本 ${latest}，正在更新`);
+    await reloadLatestApp();
   }
   catch {
     toast("暂时无法检查更新");
@@ -1482,7 +1579,7 @@ function bind() {
   document.querySelector("[data-save-summary]")?.addEventListener("click", () => saveBatchSummary());
   document.querySelector("[data-add-batch-anomaly]")?.addEventListener("click", addBatchAnomaly);
   document.querySelector("[data-batch-folder]")?.addEventListener("change", (e) => { const batch = state.batches.find((item) => item.id === state.detailBatchId); if (!batch) return; batch.folder = e.target.value; save(); toast("批次文件夹已更新"); });
-  document.querySelectorAll("[data-print]").forEach((el) => el.addEventListener("click", () => { saveBatchSummary(false); render(); setTimeout(() => window.print(), 0); }));
+  document.querySelectorAll("[data-print]").forEach((el) => el.addEventListener("click", printBatchPdf));
   document.querySelector("[data-export-csv]")?.addEventListener("click", exportBatchCsv);
   document.querySelector("[data-export-backup]")?.addEventListener("click", exportBackup);
   document.querySelector("[data-import-backup]")?.addEventListener("click", () => document.querySelector("[data-import-backup-file]")?.click());
@@ -1524,5 +1621,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=52");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=55");
 render();

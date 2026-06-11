@@ -2,6 +2,25 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.3 - 2026-06-12
+
+- PDF save titles now keep a detailed filename with country, variety, process, date, and batch number labels.
+- Removed the quick title reset after opening print so mobile save/share flows can pick up the detailed PDF name.
+- Updated cached assets to v55 so existing users can detect and load this release.
+
+## V1.2 - 2026-06-12
+
+- PDF print titles now use country, variety, process, date, and batch number for a clearer default file name.
+- Reworked the PDF report into a compact one-page A4 layout with chart, key metrics, batch information, key events, temperature rows, and only non-empty notes.
+- Added lowest temperature to the batch summary metrics.
+- Updated cached assets to v54 so existing users can detect and load this release.
+
+## V1.1 - 2026-06-12
+
+- Changed "检查更新" so it clears cached app files and reloads the latest published version.
+- Kept local roast data untouched during the reload.
+- Updated cached assets to v53 so existing V1 users can detect and load this release.
+
 ## V1 - 2026-06-08
 
 - Improved live temperature entry with slider rough control, direct numeric input, and ±0.1 / ±1 fine adjustment.
