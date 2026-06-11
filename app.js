@@ -273,7 +273,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.6";
+const APP_VERSION = "V1.7";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -510,6 +510,7 @@ function manualBatch() {
       </div></section>
       <section class="section"><div class="section-head"><h2>关键节点</h2><span class="subtle">时间格式 05:40</span></div><div class="paper-events">
         ${manualEventFields("最低温度", "low", d)}
+        ${manualLossField(d)}
         ${manualEventFields(maillard, "maillard", d)}
         ${manualEventFields("一爆", "crack", d)}
         ${manualEventFields("出豆", "drop", d)}
@@ -525,6 +526,10 @@ function manualEventFields(label, key, draft) {
   const time = draft[`${key}Time`] || (draft[`${key}Min`] || draft[`${key}Sec`] ? `${draft[`${key}Min`] || "00"}:${draft[`${key}Sec`] || "00"}` : "");
   const defaultTemp = key === "maillard" ? machine(draft.machineId).maillardTemp : "";
   return `<div class="paper-event"><strong>${esc(label)}</strong><label><span>时间</span>${timeParts(key, time, true)}</label><label><span>温度</span><span class="temp-with-unit"><input name="${key}Temp" inputmode="decimal" type="number" step="0.1" value="${esc(draft[`${key}Temp`] || defaultTemp)}" placeholder="可选"><b>°C</b></span></label></div>`;
+}
+
+function manualLossField(draft = {}) {
+  return `<div class="paper-event paper-loss-event"><strong>水分减少率</strong><label><span>百分比</span><span class="temp-with-unit"><input name="lossRate" inputmode="decimal" type="number" step="0.1" value="${esc(draft.lossRate || "")}" placeholder="可选"><b>%</b></span></label></div>`;
 }
 
 function paperRow(index, seconds = index * 60, temperature = "", event = "") {
@@ -1696,5 +1701,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=58");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=59");
 render();

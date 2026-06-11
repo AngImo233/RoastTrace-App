@@ -1,5 +1,5 @@
 {
-  "version": "V1.6",
+  "version": "V1.7",
   "releasedAt": "2026-06-12",
-  "notes": "Live temperature entry is cleaner, and batch comparison now includes temperature tables and one-page comparison PDF reports."
+  "notes": "Manual entry now includes water loss percentage alongside key roast events."
 }

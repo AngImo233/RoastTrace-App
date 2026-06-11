@@ -2,6 +2,11 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.7 - 2026-06-12
+
+- Added water loss percentage to the manual-entry key event section next to lowest temperature.
+- Updated cached assets to v59 so existing users can detect and load this release.
+
 ## V1.6 - 2026-06-12
 
 - Removed the separate "直接输入" live temperature field; the main temperature number is now directly editable.
