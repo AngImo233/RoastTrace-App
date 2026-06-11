@@ -4,6 +4,10 @@ This file records public RoastTrace web app updates.
 
 ## V1 - 2026-06-08
 
+- Improved live temperature entry with slider rough control, direct numeric input, and ±0.1 / ±1 fine adjustment.
+- Live and detail temperature tables now sort by recorded roast time, so later-entered 5:50 appears before 6:00.
+- Temperature tables now read from earliest to latest, with 0:00 at the top.
+- Updated cached assets to v52.
 - Enabled Google Analytics 4 with measurement ID `G-H4G7309WFC`.
 - Analytics tracks app opens and display mode only; roast data is not uploaded.
 - Added a Google Analytics 4 hook for simple anonymous app-open statistics.

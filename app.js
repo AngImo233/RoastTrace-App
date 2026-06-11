@@ -212,6 +212,12 @@ const controlValueLabel = (value = "", mode = "free") => {
   const unit = controlModes[mode]?.unit || "";
   return `${value}${unit && !String(value).includes(unit) ? unit : ""}`;
 };
+const sortedEntries = (entries = []) => entries.slice().sort((left, right) => {
+  const leftSeconds = Number(left.seconds) || 0;
+  const rightSeconds = Number(right.seconds) || 0;
+  if (leftSeconds !== rightSeconds) return leftSeconds - rightSeconds;
+  return String(left.event || "").localeCompare(String(right.event || ""));
+});
 function controlInput(kind, label, m, value = "") {
   const config = controlSettings(m, kind);
   const current = value === "" || value === undefined ? defaultControlValue(m, kind) : formatControlValue(value, config.step);
@@ -231,11 +237,35 @@ function tempInput(m, value = "") {
   const current = formatControlValue(value || m.chargeTemp || config.min, config.step);
   return `<div class="temp-wheel">
     <div class="temp-readout"><span>当前温度</span><strong data-temp-output>${esc(current)}</strong><b>°C</b></div>
-    <input id="live-temperature" class="temp-slider" name="tempControl" type="range" min="${esc(config.min)}" max="${esc(config.max)}" step="${esc(config.step)}" value="${esc(current)}" data-temp-slider>
+    <div class="temp-stepper">
+      <button type="button" data-temp-adjust="-1">−1</button>
+      <button type="button" data-temp-adjust="-0.1">−0.1</button>
+      <label><span>直接输入</span><input id="live-temperature" inputmode="decimal" type="number" min="${esc(config.min)}" max="${esc(config.max)}" step="${esc(config.step)}" value="${esc(current)}"></label>
+      <button type="button" data-temp-adjust="0.1">＋0.1</button>
+      <button type="button" data-temp-adjust="1">＋1</button>
+    </div>
+    <input class="temp-slider" name="tempControl" type="range" min="${esc(config.min)}" max="${esc(config.max)}" step="${esc(config.step)}" value="${esc(current)}" data-temp-slider>
     <div class="temp-scale"><span>${esc(config.min)}°</span><span>${esc(config.max)}°</span></div>
   </div>`;
 }
 const liveRecordSeconds = () => readPartsTime({ liveMin: document.querySelector('[name="liveMin"]')?.value, liveSec: document.querySelector('[name="liveSec"]')?.value }, "live") ?? elapsed();
+function setLiveTemperature(raw, formatInput = true) {
+  if (!state.active) return;
+  const m = machine(state.active.machineId);
+  const config = tempSettings(m);
+  const num = Number(raw);
+  if (!Number.isFinite(num)) return;
+  const clamped = Math.min(config.max, Math.max(config.min, num));
+  const value = formatControlValue(clamped, config.step);
+  state.active.tempValue = value;
+  const output = document.querySelector("[data-temp-output]");
+  const slider = document.querySelector("[data-temp-slider]");
+  const input = document.querySelector("#live-temperature");
+  if (output) output.textContent = value;
+  if (slider) slider.value = value;
+  if (input && formatInput) input.value = value;
+  save();
+}
 const isAnomalyEvent = (event = "") => String(event).startsWith("异常：");
 const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqqhtULFdjONxC8xzGitLCji8fnR3-eukQ/viewform";
 const feedbackEmail = "ouokubou@gmail.com";
@@ -374,7 +404,7 @@ function live() {
   if (!state.active) { state.route = "home"; save(); return home(); }
   const a = state.active, b = bean(a.beanId), m = machine(a.machineId);
   const sec = elapsed(), sw = stopwatchElapsed();
-  const rows = a.entries.slice().reverse();
+  const rows = sortedEntries(a.entries);
   a.maillardTemp ??= m.maillardTemp;
   a.heatStep ??= m.heatStep || "0.1";
   a.airStep ??= m.airStep || "0.1";
@@ -602,7 +632,7 @@ function batchDetail() {
   const batch = state.batches.find((item) => item.id === state.detailBatchId);
   if (!batch) { state.route = "home"; save(); return home(); }
   const b = bean(batch.beanId), m = machine(batch.machineId);
-  const entries = batch.entries || [];
+  const entries = sortedEntries(batch.entries || []);
   const events = entries.filter((entry) => entry.event);
   const anomalies = events.filter((entry) => isAnomalyEvent(entry.event));
   const sameBeanBatches = state.batches
@@ -650,7 +680,7 @@ function batchDetail() {
       <div class="section-head"><h2>完整温度时间表</h2><span class="subtle">${entries.length} 条记录</span></div>
       <div class="minute-table">
         <div class="minute-row header"><span>时间</span><span>温度</span><span>节点 / 备注</span><span></span></div>
-        ${entries.slice().reverse().map((entry) => `<div class="minute-row"><span>${fmt(entry.seconds)}</span><b>${entry.temperature ? `${esc(entry.temperature)}°` : "—"}</b><em>${esc(eventLabel(entry.event))}</em><span></span></div>`).join("")}
+        ${entries.map((entry) => `<div class="minute-row"><span>${fmt(entry.seconds)}</span><b>${entry.temperature ? `${esc(entry.temperature)}°` : "—"}</b><em>${esc(eventLabel(entry.event))}</em><span></span></div>`).join("")}
       </div>
     </section>
     <section class="section">
@@ -1191,7 +1221,8 @@ function startRoast() {
 
 function recordTemp(event = "") {
   const input = document.querySelector("#live-temperature");
-  const temperature = input?.value || state.active?.tempValue;
+  if (input?.value) setLiveTemperature(input.value, true);
+  const temperature = state.active?.tempValue || input?.value;
   if (!temperature) { toast("先输入当前温度"); input?.focus(); return false; }
   const seconds = readPartsTime({ liveMin: document.querySelector('[name="liveMin"]')?.value, liveSec: document.querySelector('[name="liveSec"]')?.value }, "live");
   if (seconds === null) { toast("请填写记录时间"); return false; }
@@ -1333,14 +1364,15 @@ function bind() {
   document.querySelector("[data-toggle-roast-timer]")?.addEventListener("click", startLiveTimer);
   document.querySelector("[data-record-temp]")?.addEventListener("click", () => recordTemp());
   document.querySelector("#live-temperature")?.addEventListener("keydown", (e) => { if (e.key === "Enter") recordTemp(); });
-  document.querySelector("[data-temp-slider]")?.addEventListener("input", (e) => {
+  document.querySelector("#live-temperature")?.addEventListener("input", (e) => setLiveTemperature(e.target.value, false));
+  document.querySelector("#live-temperature")?.addEventListener("change", (e) => setLiveTemperature(e.target.value, true));
+  document.querySelector("[data-temp-slider]")?.addEventListener("input", (e) => setLiveTemperature(e.target.value, true));
+  document.querySelectorAll("[data-temp-adjust]").forEach((el) => el.addEventListener("click", () => {
     if (!state.active) return;
-    const step = machine(state.active.machineId).tempStep || "0.1";
-    state.active.tempValue = formatControlValue(e.target.value, step);
-    const output = document.querySelector("[data-temp-output]");
-    if (output) output.textContent = state.active.tempValue;
-    save();
-  });
+    const base = Number(document.querySelector("#live-temperature")?.value || state.active.tempValue || state.active.chargeTemp || 0);
+    const delta = Number(el.dataset.tempAdjust || 0);
+    setLiveTemperature(base + delta, true);
+  }));
   document.querySelector("[data-record-control]")?.addEventListener("click", recordControl);
   document.querySelector("[data-open-live-machine-settings]")?.addEventListener("click", () => { state.showLiveMachineSettings = true; save(); render(); });
   document.querySelectorAll("[data-close-live-machine-settings]").forEach((el) => el.addEventListener("click", () => { state.showLiveMachineSettings = false; save(); render(); }));
@@ -1445,7 +1477,7 @@ function bind() {
       [draft[`${key}Min`], draft[`${key}Sec`]] = splitTime(fmt(entry.seconds));
       draft[`${key}Temp`] = entry.temperature || "";
     });
-    state.editBatchId = batch.id; state.manualDraft = draft; state.manualRows = (batch.entries || []).filter((entry) => !entry.event).filter((entry) => Number(entry.seconds) > 0); state.route = "manual"; save(); render();
+    state.editBatchId = batch.id; state.manualDraft = draft; state.manualRows = sortedEntries(batch.entries || []).filter((entry) => !entry.event).filter((entry) => Number(entry.seconds) > 0); state.route = "manual"; save(); render();
   });
   document.querySelector("[data-save-summary]")?.addEventListener("click", () => saveBatchSummary());
   document.querySelector("[data-add-batch-anomaly]")?.addEventListener("click", addBatchAnomaly);
@@ -1492,5 +1524,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=51");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=52");
 render();
