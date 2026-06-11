@@ -2,6 +2,13 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.6 - 2026-06-12
+
+- Removed the separate "直接输入" live temperature field; the main temperature number is now directly editable.
+- Added a per-time temperature comparison table to batch comparison.
+- Added a one-page comparison PDF report with curve, key event summaries, and temperature table.
+- Updated cached assets to v58 so existing users can detect and load this release.
+
 ## V1.5 - 2026-06-12
 
 - PDF generation now opens a dedicated titled report document before printing, so iPhone save/share flows can use the bean, date, and batch title instead of the app name.

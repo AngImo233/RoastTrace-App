@@ -236,11 +236,10 @@ function tempInput(m, value = "") {
   const config = tempSettings(m);
   const current = formatControlValue(value || m.chargeTemp || config.min, config.step);
   return `<div class="temp-wheel">
-    <div class="temp-readout"><span>当前温度</span><strong data-temp-output>${esc(current)}</strong><b>°C</b></div>
+    <div class="temp-readout"><span>当前温度</span><input id="live-temperature" class="temp-main-input" data-temp-output inputmode="decimal" type="number" min="${esc(config.min)}" max="${esc(config.max)}" step="${esc(config.step)}" value="${esc(current)}"><b>°C</b></div>
     <div class="temp-stepper">
       <button type="button" data-temp-adjust="-1">−1</button>
       <button type="button" data-temp-adjust="-0.1">−0.1</button>
-      <label><span>直接输入</span><input id="live-temperature" inputmode="decimal" type="number" min="${esc(config.min)}" max="${esc(config.max)}" step="${esc(config.step)}" value="${esc(current)}"></label>
       <button type="button" data-temp-adjust="0.1">＋0.1</button>
       <button type="button" data-temp-adjust="1">＋1</button>
     </div>
@@ -261,7 +260,10 @@ function setLiveTemperature(raw, formatInput = true) {
   const output = document.querySelector("[data-temp-output]");
   const slider = document.querySelector("[data-temp-slider]");
   const input = document.querySelector("#live-temperature");
-  if (output) output.textContent = value;
+  if (output) {
+    if (output instanceof HTMLInputElement) output.value = value;
+    else output.textContent = value;
+  }
   if (slider) slider.value = value;
   if (input && formatInput) input.value = value;
   save();
@@ -271,7 +273,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.5";
+const APP_VERSION = "V1.6";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -973,6 +975,16 @@ function printBatchPdf() {
   else setTimeout(() => window.print(), 0);
 }
 
+function printComparePdf() {
+  const first = state.batches.find((batch) => batch.id === (state.compareA || state.batches[0]?.id));
+  const second = state.batches.find((batch) => batch.id === (state.compareB || state.batches[1]?.id || state.batches[0]?.id));
+  if (!first || !second) return;
+  const title = compareTitle(first, second);
+  document.title = title;
+  const report = document.querySelector(".compare-print-report")?.outerHTML || comparePrintReport(first, second);
+  printDocument(title, report);
+}
+
 function backupState() {
   const data = clone(state);
   Object.assign(data, {
@@ -1180,6 +1192,47 @@ function comparisonChart(first, second) {
   return `<div class="chart-card"><div class="chart-legend"><span class="temperature-key">批次 A</span><span class="compare-key">批次 B</span></div><svg class="roast-chart" viewBox="0 0 ${width} ${height}">${Array.from({ length: 5 }, (_, index) => { const yy = top + plotHeight / 4 * index; return `<line class="chart-grid" x1="${left}" y1="${yy}" x2="${width - right}" y2="${yy}"></line><text class="chart-axis" x="${left - 5}" y="${yy + 3}" text-anchor="end">${Math.round(maxTemp - range / 4 * index)}</text>`; }).join("")}${Array.from({ length: 5 }, (_, index) => { const seconds = Math.round(maxSeconds / 4 * index); return `<text class="chart-axis" x="${x(seconds)}" y="${height - 10}" text-anchor="middle">${fmt(seconds)}</text>`; }).join("")}<polyline class="chart-line temperature-line" points="${lines[0]}"></polyline><polyline class="chart-line compare-line" points="${lines[1]}"></polyline></svg></div>`;
 }
 
+function compareTitle(first, second) {
+  const firstBean = bean(first.beanId), secondBean = bean(second.beanId);
+  return `Compare ${safePdfTitlePart(firstBean.name)} ${normalizedDate(first.date).replaceAll("-", "")} #${safePdfTitlePart(first.roastNo || "x")} vs ${safePdfTitlePart(secondBean.name)} ${normalizedDate(second.date).replaceAll("-", "")} #${safePdfTitlePart(second.roastNo || "x")}`;
+}
+
+function compareTemperatureRows(first, second, limit = Infinity) {
+  const rows = new Map();
+  [first, second].forEach((batch, batchIndex) => {
+    (batch.entries || []).forEach((entry) => {
+      if (!String(entry.temperature || "").trim()) return;
+      const seconds = Number(entry.seconds) || 0;
+      const key = fmt(seconds);
+      const row = rows.get(key) || { seconds, time: key, a: "", aEvent: "", b: "", bEvent: "" };
+      if (batchIndex === 0) { row.a = `${entry.temperature}°`; row.aEvent = eventLabel(entry.event); }
+      else { row.b = `${entry.temperature}°`; row.bEvent = eventLabel(entry.event); }
+      rows.set(key, row);
+    });
+  });
+  return Array.from(rows.values()).sort((a, b) => a.seconds - b.seconds).slice(0, limit);
+}
+
+function compareTemperatureTable(first, second, limit = Infinity, className = "") {
+  const rows = compareTemperatureRows(first, second, limit);
+  return `<div class="compare-temp-table ${className}">
+    <div class="compare-temp-row header"><span>时间</span><span>批次 A</span><span>节点 A</span><span>批次 B</span><span>节点 B</span></div>
+    ${rows.length ? rows.map((row) => `<div class="compare-temp-row"><span>${esc(row.time)}</span><b>${esc(row.a || "—")}</b><em>${esc(row.aEvent)}</em><b>${esc(row.b || "—")}</b><em>${esc(row.bEvent)}</em></div>`).join("") : `<div class="empty compact-empty">没有可对比的温度记录。</div>`}
+  </div>`;
+}
+
+function comparePrintReport(first, second) {
+  return `<article class="print-only print-report compare-print-report">
+    <header class="print-report-head">
+      <div><small>RoastTrace Compare</small><h1>批次对比</h1><p>${esc(bean(first.beanId).name)} #${esc(first.roastNo || "?")} · ${esc(bean(second.beanId).name)} #${esc(second.roastNo || "?")}</p></div>
+      <strong>${esc(APP_VERSION)}</strong>
+    </header>
+    <section class="print-compare-chart">${comparisonChart(first, second)}</section>
+    <section class="print-compare-cards"><div>${compareCard("批次 A", first)}</div><div>${compareCard("批次 B", second)}</div></section>
+    <section class="print-compare-table"><h2>每分钟温度对照</h2>${compareTemperatureTable(first, second, 24, "print-compact")}</section>
+  </article>`;
+}
+
 function compare() {
   const firstId = state.compareA || state.batches[0]?.id;
   const secondId = state.compareB || state.batches[1]?.id || state.batches[0]?.id;
@@ -1189,7 +1242,7 @@ function compare() {
   return shell(`${backBar("批次对比")}
     <div class="eyebrow">Batch Compare</div><h1>把两炉曲线，<br>放在一起看。</h1>
     <section class="section"><div class="compare-selects">${select("批次 A", "compareA", firstId, options, true)}${select("批次 B", "compareB", secondId, options, true)}</div></section>
-    ${first && second ? `<section class="section">${comparisonChart(first, second)}</section><section class="section"><div class="compare-grid">${compareCard("批次 A", first)}${compareCard("批次 B", second)}</div></section>` : `<div class="empty card">至少保存两个批次后，就可以开始对比。</div>`}`, "compare");
+    ${first && second ? `<div class="screen-compare"><section class="section">${comparisonChart(first, second)}</section><section class="section"><div class="compare-grid">${compareCard("批次 A", first)}${compareCard("批次 B", second)}</div></section><section class="section"><div class="section-head"><h2>每分钟温度表</h2><span class="subtle">${compareTemperatureRows(first, second).length} 条记录</span></div>${compareTemperatureTable(first, second)}</section><section class="section print-hide"><button class="primary" data-print-compare>生成对比 PDF</button></section></div>${comparePrintReport(first, second)}` : `<div class="empty card">至少保存两个批次后，就可以开始对比。</div>`}`, "compare");
 }
 
 function compareCard(title, batch) {
@@ -1601,6 +1654,7 @@ function bind() {
   document.querySelector("[data-add-batch-anomaly]")?.addEventListener("click", addBatchAnomaly);
   document.querySelector("[data-batch-folder]")?.addEventListener("change", (e) => { const batch = state.batches.find((item) => item.id === state.detailBatchId); if (!batch) return; batch.folder = e.target.value; save(); toast("批次文件夹已更新"); });
   document.querySelectorAll("[data-print]").forEach((el) => el.addEventListener("click", printBatchPdf));
+  document.querySelector("[data-print-compare]")?.addEventListener("click", printComparePdf);
   document.querySelector("[data-export-csv]")?.addEventListener("click", exportBatchCsv);
   document.querySelector("[data-export-backup]")?.addEventListener("click", exportBackup);
   document.querySelector("[data-import-backup]")?.addEventListener("click", () => document.querySelector("[data-import-backup-file]")?.click());
@@ -1642,5 +1696,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=57");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=58");
 render();

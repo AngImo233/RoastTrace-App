@@ -1,5 +1,5 @@
 {
-  "version": "V1.5",
+  "version": "V1.6",
   "releasedAt": "2026-06-12",
-  "notes": "PDF printing now opens a dedicated titled report page so iPhone save names can use the bean, date, and batch title."
+  "notes": "Live temperature entry is cleaner, and batch comparison now includes temperature tables and one-page comparison PDF reports."
 }

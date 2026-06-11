@@ -180,8 +180,10 @@ p { margin: 0; }
 .temp-readout { display: grid; grid-template-columns: 1fr auto auto; align-items: baseline; gap: 5px; }
 .temp-readout span { color: #dbc7b7; font-size: 11px; font-weight: 800; }
 .temp-readout strong { color: #fff8ef; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 34px; letter-spacing: -.08em; }
+.temp-main-input { min-width: 0; width: 100%; height: 48px; padding: 0 5px; border: 0; border-bottom: 1px solid rgba(255,255,255,.34); border-radius: 0; outline: 0; background: transparent; color: #fff8ef; text-align: right; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 34px; font-weight: 850; letter-spacing: -.08em; }
+.temp-main-input:focus { border-bottom-color: #fff8ef; box-shadow: none; }
 .temp-readout b { color: #e6d4c4; font-size: 15px; }
-.temp-stepper { display: grid; grid-template-columns: 42px 52px minmax(0, 1fr) 52px 42px; gap: 6px; align-items: end; margin-top: 8px; }
+.temp-stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; align-items: end; margin-top: 8px; }
 .temp-stepper button { min-height: 38px; border: 1px solid rgba(255,255,255,.18); border-radius: 11px; background: rgba(255,255,255,.14); color: #fff8ef; font-size: 12px; font-weight: 850; }
 .temp-stepper label { display: grid; gap: 3px; min-width: 0; }
 .temp-stepper label span { color: #dbc7b7; font-size: 10px; font-weight: 800; }
@@ -400,6 +402,12 @@ p { margin: 0; }
 .compare-card dl { display: grid; grid-template-columns: 1fr auto; gap: 7px; margin: 13px 0 0; font-size: 12px; }
 .compare-card dt { color: var(--muted); }
 .compare-card dd { margin: 0; color: var(--coffee); font-weight: 800; }
+.compare-temp-table { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--cream); }
+.compare-temp-row { display: grid; grid-template-columns: 58px 72px minmax(0, 1fr) 72px minmax(0, 1fr); min-height: 38px; padding: 0 9px; border-bottom: 1px solid var(--line); align-items: center; gap: 6px; font-size: 12px; }
+.compare-temp-row:last-child { border-bottom: 0; }
+.compare-temp-row.header { min-height: 33px; color: var(--muted); background: #f0e7dd; font-size: 10px; font-weight: 850; }
+.compare-temp-row b { color: var(--coffee); }
+.compare-temp-row em { color: var(--caramel); font-style: normal; font-weight: 750; overflow-wrap: anywhere; }
 .print-only { display: none; }
 .toast { position: fixed; z-index: 30; bottom: calc(env(safe-area-inset-bottom) + 92px); left: 50%; max-width: 86%; padding: 11px 16px; border-radius: 999px; transform: translateX(-50%); background: var(--ink); color: white; font-size: 13px; box-shadow: var(--shadow); }
 .hidden { display: none !important; }
@@ -413,7 +421,7 @@ p { margin: 0; }
   @page { size: A4; margin: 8mm; }
   body, .app-shell { min-height: auto; background: white; }
   .app-shell { max-width: none; padding: 0; }
-  .nav, .print-hide, .summary-notes, .icon-btn, .screen-report, .topbar { display: none !important; }
+  .nav, .print-hide, .summary-notes, .icon-btn, .screen-report, .screen-compare, .topbar { display: none !important; }
   .print-only { display: block; }
   .section { margin-top: 12px; break-inside: avoid; }
   .card, .minute-table, .chart-card, .summary-hero { break-inside: avoid; }
@@ -450,4 +458,15 @@ p { margin: 0; }
   .print-table span { color: #6f5a4b; font-weight: 850; }
   .print-table b { color: #4a2f21; }
   .print-table em { color: #9a633f; font-style: normal; }
+  .compare-print-report .print-compare-chart .chart-card { padding: 5px; border-radius: 8px; background: #fffaf3; }
+  .compare-print-report .print-compare-chart .roast-chart { height: 150px; }
+  .compare-print-report .print-compare-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 6px; }
+  .compare-print-report .compare-card { padding: 7px; border-radius: 8px; box-shadow: none; }
+  .compare-print-report .compare-card h3 { font-size: 10px; }
+  .compare-print-report .compare-card p, .compare-print-report .compare-card dl { font-size: 8px; }
+  .print-compare-table { margin-top: 6px; }
+  .print-compare-table h2 { margin: 0 0 4px; color: #4a2f21; font-size: 10px; }
+  .compare-temp-table.print-compact { border-radius: 8px; }
+  .print-compact .compare-temp-row { grid-template-columns: 34px 42px minmax(0, 1fr) 42px minmax(0, 1fr); min-height: 17px; padding: 0 4px; gap: 3px; font-size: 7.2px; }
+  .print-compact .compare-temp-row.header { min-height: 18px; font-size: 7px; }
 }

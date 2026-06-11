@@ -1,5 +1,5 @@
-const CACHE = "roast-journal-v57";
-const ASSETS = ["./", "./index.html", "./styles.css?v=57", "./app.js?v=57", "./manifest.webmanifest?v=57", "./icon-roastlog.png?v=57", "./feedback-qr.png?v=57", "./app-qr.png?v=57", "./version.json?v=57"];
+const CACHE = "roast-journal-v58";
+const ASSETS = ["./", "./index.html", "./styles.css?v=58", "./app.js?v=58", "./manifest.webmanifest?v=58", "./icon-roastlog.png?v=58", "./feedback-qr.png?v=58", "./app-qr.png?v=58", "./version.json?v=58"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
