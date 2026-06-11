@@ -2,6 +2,11 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.4 - 2026-06-12
+
+- PDF save titles now use the English bean name, compact date, and batch number, for example `Ethiopia Samii Heirloom 20260612 #1`.
+- Updated cached assets to v56 so existing users can detect and load this release.
+
 ## V1.3 - 2026-06-12
 
 - PDF save titles now keep a detailed filename with country, variety, process, date, and batch number labels.

@@ -1,5 +1,5 @@
 {
-  "version": "V1.3",
+  "version": "V1.4",
   "releasedAt": "2026-06-12",
-  "notes": "PDF save titles now keep a detailed country, variety, process, date, and batch filename."
+  "notes": "PDF save titles now use the bean name, YYYYMMDD date, and batch number."
 }

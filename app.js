@@ -271,7 +271,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.3";
+const APP_VERSION = "V1.4";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -574,16 +574,19 @@ function safeFilePart(value = "") {
     .replace(/^-|-$/g, "") || "unknown";
 }
 
+function safePdfTitlePart(value = "") {
+  return String(value || "")
+    .trim()
+    .replace(/[\\/:*?"<>|%{}~&]/g, "-")
+    .replace(/\s+/g, " ")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "") || "unknown";
+}
+
 function batchFileName(batch) {
   const b = bean(batch.beanId);
-  const parts = [
-    ["country", b.country],
-    ["variety", b.variety || b.name],
-    ["process", b.process],
-    ["date", normalizedDate(batch.date || isoToday())],
-    ["batch", batch.roastNo || "x"]
-  ];
-  return ["RoastTrace", ...parts.map(([label, value]) => `${label}-${safeFilePart(value)}`)].join("_");
+  const date = normalizedDate(batch.date || isoToday()).replaceAll("-", "");
+  return `${safePdfTitlePart(b.name)} ${date} #${safePdfTitlePart(batch.roastNo || "x")}`;
 }
 
 function printNoteBlocks(batch) {
@@ -1621,5 +1624,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=55");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=56");
 render();
