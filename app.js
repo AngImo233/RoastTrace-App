@@ -280,7 +280,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.10";
+const APP_VERSION = "V1.11";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -616,7 +616,7 @@ function printNoteBlocks(batch) {
     ["风味标签", batch.flavorTags],
     ["杯测记录", batch.cuppingNote]
   ]);
-  return `<section class="print-write-notes"><h2>记录</h2>${blocks.length ? blocks.map(([label, value]) => `<div class="print-note-block"><h3>${esc(label)}</h3><p>${esc(value)}</p></div>`).join("") : `<div class="print-note-lines">${Array.from({ length: 9 }, () => "<i></i>").join("")}</div>`}</section>`;
+  return `<section class="print-write-notes"><h2>メモ</h2>${blocks.length ? blocks.map(([label, value]) => `<div class="print-note-block"><h3>${esc(label)}</h3><p>${esc(value)}</p></div>`).join("") : `<div class="print-note-blank"></div>`}</section>`;
 }
 
 function printReport(batch, entries, events, metrics) {
@@ -1722,5 +1722,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=62");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=63");
 render();

@@ -2,6 +2,13 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.11 - 2026-06-12
+
+- Restored brown filled metric cards in the single-batch PDF and forced print color adjustment for PDF output.
+- Rebalanced the A4 portrait layout with more space in the bottom half.
+- Increased temperature-record row spacing and changed the right memo area to a clean framed `メモ` box without ruled lines.
+- Updated cached assets to v63 so existing users can detect and load this release.
+
 ## V1.10 - 2026-06-12
 
 - Fixed batch detail pages failing to open after restoring a valid backup because the PDF report template referenced a missing lowest-temperature variable.

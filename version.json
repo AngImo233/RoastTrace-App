@@ -1,5 +1,5 @@
 {
-  "version": "V1.10",
+  "version": "V1.11",
   "releasedAt": "2026-06-12",
-  "notes": "Fixed opening restored backup batches by restoring the lowest-temperature PDF event reference."
+  "notes": "Adjusted the single-batch A4 PDF layout with brown metric cards, roomier temperature rows, and a framed memo box."
 }
