@@ -2,6 +2,14 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.8 - 2026-06-12
+
+- Made the dedicated PDF print document visible after iPhone save/share flows, avoiding a blank app-colored screen.
+- Redesigned the single-batch PDF into a compact one-page A4 layout with four key metrics, chart, compact batch info, key points, vertical time/temperature log, and a notes area.
+- Removed the PDF version badge and removed process notes from app detail/manual display and PDF output.
+- Renamed water loss wording to `水分减少率` / Japanese `水分減少率`.
+- Updated cached assets to v60 so existing users can detect and load this release.
+
 ## V1.7 - 2026-06-12
 
 - Added water loss percentage to the manual-entry key event section next to lowest temperature.

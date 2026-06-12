@@ -273,7 +273,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.7";
+const APP_VERSION = "V1.8";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -296,10 +296,10 @@ function liveMachineQuick(m) {
 }
 const translations = {
   en: {
-    "批次":"Batches","搜索":"Search","烘焙机":"Roasters","设置":"Settings","快速开始":"Quick start","新建烘焙记录":"New roast log","开始新批次":"Start roast","手动记录":"Manual entry","最近批次":"Recent batches","新建文件夹":"New folder","本机数据":"Local data","已保存批次":"Saved batches","烘焙机配置":"Roaster profiles","本地保存":"Local storage","已启用":"Enabled","规划中":"Planned","批次对比":"Batch comparison","打开":"Open","语言":"Language","界面语言":"Interface language","生成 PDF":"Create PDF","生成完整 PDF 报告":"Create complete PDF","下载当前批次 CSV":"Download batch CSV","烘焙记录与总结":"Roast notes","过程备注":"Process notes","结束总结":"Summary","温度与 RoR 曲线":"Temperature and RoR","完整温度时间表":"Temperature log","关键节点":"Events","总时间":"Total time","烘焙度":"Roast level","发展时间":"Development","日期":"Date","投入温度":"Charge temp","投入量":"Charge weight","浅烘":"Light","中烘":"Medium","深烘":"Dark"
+    "批次":"Batches","搜索":"Search","烘焙机":"Roasters","设置":"Settings","快速开始":"Quick start","新建烘焙记录":"New roast log","开始新批次":"Start roast","手动记录":"Manual entry","最近批次":"Recent batches","新建文件夹":"New folder","本机数据":"Local data","已保存批次":"Saved batches","烘焙机配置":"Roaster profiles","本地保存":"Local storage","已启用":"Enabled","规划中":"Planned","批次对比":"Batch comparison","打开":"Open","语言":"Language","界面语言":"Interface language","生成 PDF":"Create PDF","生成完整 PDF 报告":"Create complete PDF","下载当前批次 CSV":"Download batch CSV","烘焙记录与总结":"Roast notes","过程备注":"Process notes","结束总结":"Summary","温度与 RoR 曲线":"Temperature and RoR","完整温度时间表":"Temperature log","关键节点":"Events","总时间":"Total time","美拉德时长":"Maillard time","水分减少率":"Moisture loss","水分减少率 %":"Moisture loss %","失重率":"Moisture loss","失重率 %":"Moisture loss %","烘焙度":"Roast level","发展时间":"Development","日期":"Date","投入温度":"Charge temp","投入量":"Charge weight","浅烘":"Light","中烘":"Medium","深烘":"Dark"
   },
   ja: {
-    "批次":"バッチ","搜索":"検索","烘焙机":"焙煎機","设置":"設定","快速开始":"クイックスタート","新建烘焙记录":"新規焙煎記録","开始新批次":"焙煎を開始","手动记录":"手動入力","最近批次":"最近のバッチ","新建文件夹":"フォルダ作成","本机数据":"端末データ","已保存批次":"保存済みバッチ","烘焙机配置":"焙煎機設定","本地保存":"ローカル保存","已启用":"有効","规划中":"予定","批次对比":"バッチ比較","打开":"開く","语言":"言語","界面语言":"表示言語","生成 PDF":"PDF 作成","生成完整 PDF 报告":"完全な PDF レポートを作成","下载当前批次 CSV":"CSV をダウンロード","烘焙记录与总结":"焙煎メモ","过程备注":"工程メモ","结束总结":"まとめ","温度与 RoR 曲线":"温度と RoR 曲線","完整温度时间表":"温度記録","关键节点":"重要ポイント","总时间":"合計時間","烘焙度":"焙煎度","发展时间":"デベロップメント","日期":"日付","投入温度":"投入温度","投入量":"投入量","浅烘":"浅煎り","中烘":"中煎り","深烘":"深煎り"
+    "批次":"バッチ","搜索":"検索","烘焙机":"焙煎機","设置":"設定","快速开始":"クイックスタート","新建烘焙记录":"新規焙煎記録","开始新批次":"焙煎を開始","手动记录":"手動入力","最近批次":"最近のバッチ","新建文件夹":"フォルダ作成","本机数据":"端末データ","已保存批次":"保存済みバッチ","烘焙机配置":"焙煎機設定","本地保存":"ローカル保存","已启用":"有効","规划中":"予定","批次对比":"バッチ比較","打开":"開く","语言":"言語","界面语言":"表示言語","生成 PDF":"PDF 作成","生成完整 PDF 报告":"完全な PDF レポートを作成","下载当前批次 CSV":"CSV をダウンロード","烘焙记录与总结":"焙煎メモ","过程备注":"まとめ","结束总结":"まとめ","温度与 RoR 曲线":"温度と RoR 曲線","完整温度时间表":"温度記録","关键节点":"重要ポイント","总时间":"合計時間","美拉德时长":"メイラード時間","水分减少率":"水分減少率","水分减少率 %":"水分減少率 %","失重率":"水分減少率","失重率 %":"水分減少率 %","烘焙度":"焙煎度","发展时间":"デベロップメント","日期":"日付","投入温度":"投入温度","投入量":"投入量","浅烘":"浅煎り","中烘":"中煎り","深烘":"深煎り"
   }
 };
 Object.assign(translations.en, {
@@ -310,14 +310,14 @@ Object.assign(translations.ja, {
   "查看全部":"すべて表示","个已保存批次":"件の保存済みバッチ","最近记录":"最新記録","数据会保存在本机，可随时回看与比较。":"データは端末内に保存され、いつでも確認・比較できます。","打开记录库 ›":"記録ライブラリを開く ›",
   "开始一炉新的记录。":"新しい焙煎記録を始める。","炉次":"バッチ番号","咖啡豆":"コーヒー豆","文件夹":"フォルダ","投入温度 °C":"投入温度 °C","投入量 g":"投入量 g","批次备注":"バッチメモ","开始烘焙并计时":"焙煎を開始して計時","日期":"日付",
   "烘焙计时":"焙煎タイマー","运行中":"計時中","点击计时开始":"タイマーをタップして開始","计时已开始":"タイマーを開始しました","发展秒表":"発展時間","点击暂停":"タップして一時停止","点击继续":"タップして再開","点击开始":"タップして開始","当前温度 · 时间可手动修正":"現在温度 · 記録時刻は修正できます","温度滑轮 · 时间可手动修正":"温度を選び、時刻を調整","当前温度":"現在温度","记录温度":"温度を記録","记录":"記録","记录时间":"記録時刻","对齐整分钟":"00秒に合わせる","整分钟":"00秒に合わせる","自动带入时间与温度":"時刻と温度を自動入力","最低温度":"最低温度","回温点":"ボトム","美拉德":"メイラード","美拉德温度":"メイラード温度","阈值可调整":"しきい値を調整できます","阈值可在机器设置中修改":"しきい値は焙煎機設定で変更できます","一爆":"1ハゼ","可同时开始发展秒表":"保存するとタイマーを開始","出豆":"煎りあげ","保存节点后完成本炉记录":"保存後に焙煎を完了","温度时间表":"温度ログ","补记整分钟":"分単位で追記","时间":"時間","温度":"温度","节点 / 备注":"イベント / メモ","记录出豆并完成":"このバッチを完了","完成本炉":"このバッチを完了",
-  "把纸面数据，":"紙の記録を、","整理成完整曲线。":"完全なカーブに整理する。","拍照辅助录入":"写真を見ながら入力","可以先拍摄或选择纸张照片，再根据照片填写下方数据。自动识别会在后续接入本地 OCR。":"紙の記録を撮影または選択して、下の欄に入力できます。OCR は今後追加予定です。","拍照":"撮影","从照片图库选择":"写真ライブラリから選択","首次打开照片图库时，iPhone 会询问访问权限。照片只在本机预览，不会上传。":"初回は iPhone が写真へのアクセス許可を確認します。写真は端末内でのみ表示され、アップロードされません。","CSV 快速导入":"CSV クイック読み込み","支持“时间, 温度, 备注”格式。导入后会先填入下方温度表，你可以检查和修改。":"「時間, 温度, メモ」形式に対応します。読み込み後は下の温度表で確認・修正できます。","选择 CSV 文件":"CSV ファイルを選択","保存完整批次":"バッチを保存","每分钟温度表":"1分ごとの温度表","＋ 添加一行":"＋ 行を追加","烘焙过程备注":"焙煎工程メモ","烘焙结束总结":"焙煎まとめ","时间格式":"時刻形式","备注":"メモ","时间冒号和温度单位会固定保留。CSV 导入后也会自动转换成逐行输入框。":"時刻のコロンと温度単位は固定表示されます。CSV 読み込み後も行ごとの入力欄に変換されます。",
+  "把纸面数据，":"紙の記録を、","整理成完整曲线。":"完全なカーブに整理する。","拍照辅助录入":"写真を見ながら入力","可以先拍摄或选择纸张照片，再根据照片填写下方数据。自动识别会在后续接入本地 OCR。":"紙の記録を撮影または選択して、下の欄に入力できます。OCR は今後追加予定です。","拍照":"撮影","从照片图库选择":"写真ライブラリから選択","首次打开照片图库时，iPhone 会询问访问权限。照片只在本机预览，不会上传。":"初回は iPhone が写真へのアクセス許可を確認します。写真は端末内でのみ表示され、アップロードされません。","CSV 快速导入":"CSV クイック読み込み","支持“时间, 温度, 备注”格式。导入后会先填入下方温度表，你可以检查和修改。":"「時間, 温度, メモ」形式に対応します。読み込み後は下の温度表で確認・修正できます。","选择 CSV 文件":"CSV ファイルを選択","保存完整批次":"バッチを保存","每分钟温度表":"1分ごとの温度表","＋ 添加一行":"＋ 行を追加","烘焙过程备注":"焙煎まとめ","烘焙结束总结":"焙煎まとめ","时间格式":"時刻形式","备注":"メモ","时间冒号和温度单位会固定保留。CSV 导入后也会自动转换成逐行输入框。":"時刻のコロンと温度単位は固定表示されます。CSV 読み込み後も行ごとの入力欄に変換されます。",
   "本机数据":"端末データ","把每一炉数据，":"各バッチのデータを、","整理成可以回看的档案。":"振り返れる記録に整理する。","选择两炉，比较曲线与关键节点。":"2つのバッチでカーブとイベントを比較。","打开 ›":"開く ›","仅保存在本机":"端末内のみに保存","全部批次":"すべてのバッチ","排序":"並び順","最新优先":"新しい順","最早优先":"古い順","按咖啡豆":"コーヒー豆順",
   "批次详情":"バッチ詳細","编辑数据":"データを編集","批次信息":"バッチ情報","国家 / 产区":"国 / 地域","品种":"品種","处理法":"精製方法","生成完整 PDF 报告":"完全な PDF レポートを作成","下载当前批次 CSV":"現在のバッチを CSV で保存",
   "iPhone 会打开打印页面。在预览图上双指放大，再点分享按钮，即可保存 PDF 到“文件”或发送给别人。":"iPhone でプリント画面が開きます。プレビューを二本指で拡大し、共有ボタンから PDF を“ファイル”へ保存または送信できます。",
   "设置":"設定","语言":"言語","简体中文":"簡体字中国語","日本語":"日本語","界面语言":"表示言語","咖啡豆档案":"コーヒー豆ライブラリ","新增豆子":"豆を追加","烘焙机":"焙煎機","新增":"追加","保存":"保存","批次对比":"バッチ比較","批次 A":"バッチ A","批次 B":"バッチ B",
   "关于与反馈":"アプリ情報・フィードバック","开发者信息、邮箱、反馈表单。":"開発者情報、メール、フィードバックフォーム。","反馈与联系":"フィードバック・連絡","发送反馈":"フィードバックを送る","邮件联系":"メールで連絡","扫码发送反馈":"QRコードでフィードバック","只有开发者能看到你的反馈，其他用户不会看到你的消息。":"フィードバックは開発者だけが確認できます。他のユーザーには表示されません。","开发者":"開発者","邮箱":"メール","打开反馈表单":"フォームを開く","公开版本":"公開版","扫码打开 RoastTrace":"QRコードで RoastTrace を開く","这个二维码会打开公开网页版 App。用户可以添加到 iPhone 主屏幕。":"このQRコードから公開Webアプリを開けます。iPhoneのホーム画面に追加できます。","检查更新":"アップデート確認","复制 App 链接":"アプリリンクをコピー","查看 GitHub":"GitHubを見る","App 链接已复制":"アプリリンクをコピーしました","已经是最新版本":"最新版です","暂时无法检查更新":"アップデートを確認できません",
   "现在离线记录，":"まずはオフラインで記録し、","以后再扩展同步。":"同期機能は今後追加します。","本地保存":"ローカル保存","当前数据仅保存在这台设备，不依赖网络。":"現在のデータはこの端末内だけに保存され、ネット接続は不要です。","PDF 报告":"PDF レポート","批次详情中可生成包含曲线、表格和总结的报告。":"バッチ詳細から、カーブ・表・まとめを含むレポートを作成できます。","iCloud 同步":"iCloud 同期","后续版本加入。":"今後のバージョンで追加します。","CSV 导入与导出":"CSV 読み込み・書き出し","纸张录入页面可导入，批次详情可下载当前批次数据。":"手動入力画面で読み込み、バッチ詳細で現在のデータを書き出せます。","匿名访问统计":"匿名アクセス解析","只统计打开次数和主屏幕打开，不上传烘焙数据。":"起動回数とホーム画面起動のみを集計し、焙煎データはアップロードしません。","待配置":"未設定","完整数据备份":"完全データバックアップ","固定网址":"固定URL","只要网址不变，更新软件后本机数据会自动保留。备份用于换手机、换网址或误删后的恢复。":"URL が変わらなければ、アプリ更新後も端末内データは自動的に残ります。バックアップは機種変更、URL変更、誤削除からの復元に使います。","备份全部数据":"すべてのデータをバックアップ","恢复备份":"バックアップを復元","备份已生成":"バックアップを作成しました","备份已恢复":"バックアップを復元しました","备份文件无效":"バックアップファイルが無効です","语言偏好保存在本机，常用界面会随选择切换。":"言語設定は端末内に保存され、画面表示に反映されます。",
-  "打开":"開く","关闭":"閉じる","开始":"開始","保存节点":"イベントを保存","保存并结束烘焙":"保存して焙煎を完了","固定温度":"固定温度","可选":"任意","说明":"説明","过程备注":"工程メモ","结束总结":"まとめ","保存文字":"メモを保存","档案名称":"表示名","产地类型":"生産地の種類","处理厂 / 合作社 / 农园名称":"精製所・組合・農園名","风味与备注":"風味・メモ","国家":"国","产区":"地域","海拔":"標高","产地":"生産地","处理厂 / 合作社":"精製所 / 組合","农园 / 庄园":"農園 / エステート","生产者 / 社区":"生産者 / コミュニティ","其他":"その他",
+  "打开":"開く","关闭":"閉じる","开始":"開始","保存节点":"イベントを保存","保存并结束烘焙":"保存して焙煎を完了","固定温度":"固定温度","可选":"任意","说明":"説明","过程备注":"まとめ","结束总结":"まとめ","保存文字":"メモを保存","档案名称":"表示名","产地类型":"生産地の種類","处理厂 / 合作社 / 农园名称":"精製所・組合・農園名","风味与备注":"風味・メモ","国家":"国","产区":"地域","海拔":"標高","产地":"生産地","处理厂 / 合作社":"精製所 / 組合","农园 / 庄园":"農園 / エステート","生产者 / 社区":"生産者 / コミュニティ","其他":"その他",
   "不同机器，":"焙煎機ごとに、","使用不同的判断规则。":"異なる判断ルールを使う。","美拉德阈值":"メイラードしきい値","按温度记录":"温度で記録","手动标记":"手動で記録","美拉德反应的计算方式因烘焙机与工作习惯而异。这里保存的是每台机器的默认记录规则，烘焙进行中仍可手动点击节点。":"メイラードの判断方法は焙煎機や作業スタイルで異なります。ここでは各焙煎機の既定ルールを保存し、焙煎中も手動でイベントを記録できます。",
   "搜索国家、处理厂、农园、品种、处理法…":"国、ステーション、農園、品種、精製方法を検索…","按国家":"国別","按品种":"品種別","国家文件夹":"国別フォルダ","品种文件夹":"品種別フォルダ","条结果":"件","没有匹配的咖啡豆。":"一致するコーヒー豆はありません。",
   "把豆子的来历，":"コーヒー豆の来歴を、","留在每一炉数据旁边。":"各バッチの記録と一緒に残す。","例如：风门、火力、天气，或者本炉想验证的事情。":"例：ダンパー、火力、天候、このバッチで確認したいこと。","例如：风门、火力变化、环境温度":"例：ダンパー、火力の変化、環境温度","例如：一爆偏早，发展段略短；下次降低前段火力。":"例：1ハゼが早く、デベロップメントが短め。次回は前半の火力を下げる。","例如：花香、柑橘、茶感":"例：フローラル、柑橘、ティーライク",
@@ -325,7 +325,7 @@ Object.assign(translations.ja, {
   "记录一爆时间":"1ハゼ時刻を記録","让每台机器使用":"焙煎機ごとに","自己的记录方式。":"固有の記録方法を使う。",
   "记录火力、风门、环境等信息":"火力、ダンパー、環境などを記録","记录本炉判断，以及下一炉想调整的方向":"このバッチの所感と次回の調整方針を記録","记录关键节点":"重要イベントを記録","输入":"入力","先输入当前温度":"現在温度を入力してください","请填写记录时间":"記録時刻を入力してください","本炉记录已保存到手机":"このバッチを端末に保存しました","例如：":"例：",
   "烘焙信息":"焙煎情報","烘焙中可修改":"焙煎中も変更できます","机器设置":"焙煎機設定","烘焙机快速设置":"焙煎機クイック設定","烘焙中会立即应用到当前滑杆。":"焙煎中のスライダーへすぐ反映されます。","保存设置":"設定を保存","取消":"キャンセル","点标签即记录":"タグをタップして記録","＋问题":"＋問題","操作记录":"操作記録","记录操作":"操作を記録","滑杆记录":"スライダー記録","火力":"火力","风门 / 风量":"ダンパー / 風量","风门":"ダンパー","异常标记":"異常メモ","添加问题":"問題を追加","自定义":"自由入力","记录什么异常？":"どんな異常を記録しますか？","新增常用问题标签":"よく使う問題タグを追加","给这个批次补充什么问题？":"このバッチに補足する問題は？","问题已补充":"問題を補足しました","本炉没有异常标记。":"このバッチには異常メモがありません。","操作记录已保存":"操作記録を保存しました","升温停滞":"昇温停滞","升温过快":"昇温過多","一爆偏早":"1ハゼ早い","一爆偏晚":"1ハゼ遅い","烟感偏重":"煙感強め","火力误操作":"火力ミス","风门误操作":"ダンパーミス","异常：":"異常：","操作：":"操作：","火力记录方式":"火力の記録方式","风门 / 风量记录方式":"ダンパー / 風量の記録方式","温度最小值 °C":"温度の最小値 °C","温度最大值 °C":"温度の最大値 °C","温度精度":"温度の精度","数字滑杆":"数値スライダー","百分比滑杆":"パーセントスライダー","压力滑杆":"圧力スライダー","转速滑杆":"回転数スライダー","整数":"整数","小数":"小数","一位小数":"小数1桁","火力最小值":"火力の最小値","火力最大值":"火力の最大値","火力精度":"火力の精度","风门最小值":"ダンパーの最小値","风门最大值":"ダンパーの最大値","风门精度":"ダンパーの精度","自由输入":"自由入力","档":"段",
-  "目标设定":"目標設定","烘焙中会显示对照":"焙煎中に目標を表示します","烘焙中对照":"焙煎中の目標","目标 / 实际":"目標 / 実績","目标一爆":"目標 1ハゼ","目标出豆":"目標 煎りあげ","目标发展":"目標 発展","发展":"発展","失重率 %":"失重率 %","失重率":"失重率","烘焙结束后填写":"焙煎後に入力","杯测记录":"カッピング記録","风味标签":"風味タグ","同豆复盘":"同じ豆の復盤","同一支豆子的其他批次会出现在这里。":"同じ豆の他のバッチがここに表示されます。","甜感、酸质、余韵、干净度":"甘さ、酸質、余韻、クリーンさ","按时间":"時間別","按国家":"国別","按品种":"品種別","炉":"バッチ",
+  "目标设定":"目標設定","烘焙中会显示对照":"焙煎中に目標を表示します","烘焙中对照":"焙煎中の目標","目标 / 实际":"目標 / 実績","目标一爆":"目標 1ハゼ","目标出豆":"目標 煎りあげ","目标发展":"目標 発展","发展":"発展","美拉德时长":"メイラード時間","水分减少率 %":"水分減少率 %","水分减少率":"水分減少率","失重率 %":"水分減少率 %","失重率":"水分減少率","烘焙结束后填写":"焙煎後に入力","杯测记录":"カッピング記録","风味标签":"風味タグ","同豆复盘":"同じ豆の復盤","同一支豆子的其他批次会出现在这里。":"同じ豆の他のバッチがここに表示されます。","甜感、酸质、余韵、干净度":"甘さ、酸質、余韻、クリーンさ","按时间":"時間別","按国家":"国別","按品种":"品種別","炉":"バッチ",
   "横轴为烘焙时间":"横軸は焙煎時間","条记录":"件の記録","至少记录两次温度后，才能生成曲线。":"温度を2回以上記録すると、カーブを表示できます。","RoR 按相邻两次温度记录自动计算。每分钟至少记录一次温度，曲线会更有参考价值。":"RoR は前後の温度記録から自動計算されます。1分に1回以上記録すると、より参考になるカーブになります。","输入温度，开始建立本炉曲线。":"温度を入力して、このバッチのカーブを作成します。","本批次没有记录关键节点。":"このバッチには重要イベントが記録されていません。"
 });
 const homeQuote = () => "I have measured out my life<br>with coffee spoons.<small>— T. S. Eliot</small>";
@@ -516,7 +516,6 @@ function manualBatch() {
         ${manualEventFields("出豆", "drop", d)}
       </div></section>
       <section class="section"><div class="section-head"><h2>每分钟温度表</h2><button class="section-link" type="button" data-add-paper-row>＋ 添加一行</button></div><div class="paper-table" id="paper-table">${paperRows()}</div><p class="subtle input-help">时间冒号和温度单位会固定保留。CSV 导入后也会自动转换成逐行输入框。</p></section>
-      <section class="section"><label class="field"><span>烘焙过程备注</span><textarea name="note" placeholder="例如：风门、火力变化、环境温度">${esc(d.note)}</textarea></label></section>
       <section class="section"><label class="field"><span>烘焙结束总结</span><textarea name="summary" placeholder="例如：一爆偏早，发展段略短；下次降低前段火力。">${esc(d.summary)}</textarea></label></section>
       <button class="primary" type="button" data-manual-save>保存完整批次</button>
     </form>`, "manual");
@@ -572,6 +571,14 @@ function filledPairs(pairs = []) {
   return pairs.filter(([, value]) => String(value ?? "").trim());
 }
 
+function findEvent(events = [], name = "") {
+  return events.find((entry) => name === "美拉德" ? String(entry.event).includes(name) : entry.event === name);
+}
+
+function durationBetween(start, end) {
+  return start && end && Number(end.seconds) >= Number(start.seconds) ? fmt(Number(end.seconds) - Number(start.seconds)) : "—";
+}
+
 function safeFilePart(value = "") {
   return String(value || "")
     .trim()
@@ -598,55 +605,59 @@ function batchFileName(batch) {
 
 function printNoteBlocks(batch) {
   const blocks = filledPairs([
-    ["过程备注", batch.note],
     ["结束总结", batch.summary],
     ["风味标签", batch.flavorTags],
     ["杯测记录", batch.cuppingNote]
   ]);
-  return blocks.length ? `<section class="print-notes">${blocks.map(([label, value]) => `<div><h3>${esc(label)}</h3><p>${esc(value)}</p></div>`).join("")}</section>` : "";
+  return `<section class="print-write-notes"><h2>记录</h2>${blocks.length ? blocks.map(([label, value]) => `<div class="print-note-block"><h3>${esc(label)}</h3><p>${esc(value)}</p></div>`).join("") : `<div class="print-note-lines">${Array.from({ length: 9 }, () => "<i></i>").join("")}</div>`}</section>`;
 }
 
 function printReport(batch, entries, events, metrics) {
   const b = bean(batch.beanId), m = machine(batch.machineId);
+  const maillard = findEvent(events, "美拉德");
+  const crack = findEvent(events, "一爆");
+  const drop = findEvent(events, "出豆");
+  const printMetrics = [
+    ["总时间", fmt(batch.duration)],
+    ["美拉德时长", durationBetween(maillard, crack)],
+    ["发展时间", durationBetween(crack, drop)],
+    ["水分减少率", batch.lossRate ? `${batch.lossRate}%` : "—"]
+  ];
   const info = filledPairs([
-    ["国家 / 产区", `${b.country} · ${b.region}`],
-    [b.locationType || "产地", placeName(b)],
-    ["品种", b.variety],
+    ["国家", b.country],
+    [b.locationType || "农园", placeName(b)],
     ["处理法", b.process],
-    ["烘焙机", m.name],
-    ["日期", displayDate(batch.date)],
-    ["炉次", `#${batch.roastNo || "?"}`],
-    ["烘焙度", batch.roastStyle],
     ["投入温度", batch.chargeTemp ? `${batch.chargeTemp}°C` : ""],
     ["投入量", batch.chargeWeight ? `${batch.chargeWeight} g` : ""],
-    ["失重率", batch.lossRate ? `${batch.lossRate}%` : ""]
+    ["烘焙机", m.name]
   ]);
-  const targets = targetValues(batch);
-  const keyEvents = events.filter((entry) => ["最低温度", "美拉德", "一爆", "出豆"].some((name) => String(entry.event).includes(name)));
-  const tempRows = entries.filter((entry) => entry.temperature).slice(0, 18);
+  const keyEvents = [
+    ["最低温度", low],
+    ["美拉德", maillard],
+    ["一爆", crack],
+    ["出豆", drop]
+  ].filter(([, entry]) => entry);
+  const tempRows = entries.filter((entry) => entry.temperature).slice(0, 24);
   return `<article class="print-only print-report">
     <header class="print-report-head">
       <div><small>RoastTrace Report</small><h1>${esc(b.name)}</h1><p>${esc(b.country)} · ${esc(b.variety)} · ${esc(b.process)} · ${displayDate(batch.date)} · #${esc(batch.roastNo || "?")}</p></div>
-      <strong>${esc(APP_VERSION)}</strong>
     </header>
     <section class="print-kpis">
-      ${metrics.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}
+      ${printMetrics.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}
     </section>
-    <div class="print-grid">
-      <div class="print-main">
+    <div class="print-top-grid">
+      <div>
         <section class="print-chart">${roastChart(entries)}</section>
-        ${printNoteBlocks(batch)}
       </div>
       <aside class="print-side">
         <section class="print-info">${info.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}</section>
-        ${targets.length ? `<section class="print-targets"><h2>目标 / 实际</h2>${targets.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}</section>` : ""}
-        <section class="print-events"><h2>关键节点</h2>${keyEvents.length ? keyEvents.map((entry) => `<div><span>${esc(eventLabel(entry.event))}</span><b>${fmt(entry.seconds)}${entry.temperature ? ` · ${esc(entry.temperature)}°C` : ""}</b></div>`).join("") : `<p>未记录</p>`}</section>
+        <section class="print-events"><h2>重要ポイント</h2>${keyEvents.length ? keyEvents.map(([label, entry]) => `<div><span>${esc(label)}</span><b>${fmt(entry.seconds)}${entry.temperature ? ` · ${esc(entry.temperature)}°C` : ""}</b></div>`).join("") : `<p>未记录</p>`}</section>
       </aside>
     </div>
-    <section class="print-table">
-      <h2>温度记录</h2>
-      <div>${tempRows.map((entry) => `<span>${fmt(entry.seconds)}</span><b>${esc(entry.temperature)}°C</b><em>${esc(eventLabel(entry.event))}</em>`).join("")}</div>
-    </section>
+    <div class="print-bottom-grid">
+      <section class="print-timeline"><h2>温度记录</h2><div>${tempRows.map((entry) => `<p><span>${fmt(entry.seconds)}</span><b>${esc(entry.temperature)}°C</b></p>`).join("")}</div></section>
+      ${printNoteBlocks(batch)}
+    </div>
   </article>`;
 }
 
@@ -661,7 +672,7 @@ function printDocument(title, reportHtml) {
     return;
   }
   printWindow.document.open();
-  printWindow.document.write(`<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title>${styles}</head><body><main class="app-shell">${reportHtml}</main><script>window.addEventListener("load",()=>setTimeout(()=>{window.focus();window.print();},350));<\/script></body></html>`);
+  printWindow.document.write(`<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title>${styles}</head><body class="print-doc"><main class="app-shell">${reportHtml}</main><script>window.addEventListener("load",()=>setTimeout(()=>{window.focus();window.print();},350));window.addEventListener("afterprint",()=>setTimeout(()=>{try{window.close();}catch(e){}},400));<\/script></body></html>`);
   printWindow.document.close();
 }
 
@@ -743,15 +754,16 @@ function batchDetail() {
     .filter((item) => item.beanId === batch.beanId && item.id !== batch.id)
     .sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0))
     .slice(0, 6);
-  const low = events.find((entry) => entry.event === "最低温度");
-  const crack = events.find((entry) => entry.event === "一爆");
-  const drop = events.find((entry) => entry.event === "出豆");
-  const development = crack && drop && drop.seconds >= crack.seconds ? fmt(drop.seconds - crack.seconds) : "—";
+  const low = findEvent(events, "最低温度");
+  const maillard = findEvent(events, "美拉德");
+  const crack = findEvent(events, "一爆");
+  const drop = findEvent(events, "出豆");
+  const development = durationBetween(crack, drop);
   const metrics = [
     ["总时间", fmt(batch.duration)],
-    ["最低温度", low ? `${fmt(low.seconds)} · ${low.temperature ? `${low.temperature}°C` : "—"}` : "—"],
+    ["美拉德时长", durationBetween(maillard, crack)],
     ["发展时间", development],
-    ["烘焙度", batch.roastStyle || "浅烘"]
+    ["水分减少率", batch.lossRate ? `${batch.lossRate}%` : "—"]
   ];
   return shell(`${backBar("批次详情", '<button class="text-btn accent print-hide" data-print>生成 PDF</button>')}
     <div class="screen-report">
@@ -769,7 +781,7 @@ function batchDetail() {
       <div class="card detail-grid">
         <div><span>烘焙机</span><b>${esc(m.name)}</b></div><div><span>日期</span><b>${displayDate(batch.date)}</b></div>
         <div><span>投入温度</span><b>${esc(batch.chargeTemp)}°C</b></div><div><span>投入量</span><b>${esc(batch.chargeWeight)} g</b></div>
-        <div><span>失重率</span><b>${batch.lossRate ? `${esc(batch.lossRate)}%` : "—"}</b></div><div><span>杯测记录</span><b>${esc(batch.cuppingNote || "—")}</b></div>
+        <div><span>水分减少率</span><b>${batch.lossRate ? `${esc(batch.lossRate)}%` : "—"}</b></div><div><span>杯测记录</span><b>${esc(batch.cuppingNote || "—")}</b></div>
         <div><span>国家 / 产区</span><b>${esc(b.country)} · ${esc(b.region)}</b></div><div><span>${esc(b.locationType || "产地")}</span><b>${esc(placeName(b))}</b></div>
         <div><span>品种</span><b>${esc(b.variety)}</b></div><div><span>处理法</span><b>${esc(b.process)}</b></div>
       </div>
@@ -796,14 +808,12 @@ function batchDetail() {
     <section class="section">
       <div class="section-head"><h2>烘焙记录与总结</h2><button class="section-link print-hide" data-save-summary>保存文字</button></div>
       <div class="summary-notes">
-        <label class="field"><span>失重率 %</span><input id="batch-loss-rate" inputmode="decimal" type="number" step="0.1" value="${esc(batch.lossRate || "")}" placeholder="烘焙结束后填写"></label>
-        <label class="field"><span>过程备注</span><textarea id="batch-note" placeholder="记录火力、风门、环境等信息">${esc(batch.note || "")}</textarea></label>
+        <label class="field"><span>水分减少率 %</span><input id="batch-loss-rate" inputmode="decimal" type="number" step="0.1" value="${esc(batch.lossRate || "")}" placeholder="烘焙结束后填写"></label>
         <label class="field"><span>结束总结</span><textarea id="batch-summary" placeholder="记录本炉判断，以及下一炉想调整的方向">${esc(batch.summary || "")}</textarea></label>
         <label class="field"><span>风味标签</span><textarea id="batch-flavor" placeholder="例如：花香、柑橘、茶感">${esc(batch.flavorTags || "")}</textarea></label>
         <label class="field"><span>杯测记录</span><textarea id="batch-cupping" placeholder="例如：甜感、酸质、余韵、干净度">${esc(batch.cuppingNote || "")}</textarea></label>
       </div>
       <div class="print-only print-summary">
-        <h3>过程备注</h3><p>${esc(batch.note || "—")}</p>
         <h3>结束总结</h3><p>${esc(batch.summary || "—")}</p>
         <h3>风味标签</h3><p>${esc(batch.flavorTags || "—")}</p>
         <h3>杯测记录</h3><p>${esc(batch.cuppingNote || "—")}</p>
@@ -831,7 +841,7 @@ function sameBeanCard(batch) {
   return `<button class="same-bean-card" data-batch-detail="${batch.id}">
     <span>${displayDate(batch.date)} · #${esc(batch.roastNo || "?")} · ${esc(batch.roastStyle || "浅烘")}</span>
     <strong>${drop ? fmt(drop.seconds) : fmt(batch.duration || 0)}</strong>
-    <small>1ハゼ ${crack ? fmt(crack.seconds) : "—"} · 発展 ${development} · 失重率 ${loss}</small>
+    <small>1ハゼ ${crack ? fmt(crack.seconds) : "—"} · 発展 ${development} · 水分減少率 ${loss}</small>
   </button>`;
 }
 
@@ -952,9 +962,9 @@ function exportBatchCsv() {
     ["炉次", `#${batch.roastNo || "?"}`], ["文件夹", batch.folder || "未分类"],
     ["咖啡豆", b.name], ["国家", b.country], ["产区", b.region], [b.locationType || "产地", placeName(b)],
     ["品种", b.variety], ["处理法", b.process], ["烘焙机", m.name], ["日期", batch.date],
-    ["烘焙度", batch.roastStyle], ["投入温度 °C", batch.chargeTemp], ["投入量 g", batch.chargeWeight], ["失重率 %", batch.lossRate || ""],
+    ["烘焙度", batch.roastStyle], ["投入温度 °C", batch.chargeTemp], ["投入量 g", batch.chargeWeight], ["水分减少率 %", batch.lossRate || ""],
     ["目标一爆", batch.targetCrack || ""], ["目标出豆", batch.targetDrop || ""], ["目标发展", batch.targetDevelopment || ""],
-    ["过程备注", batch.note || ""], ["结束总结", batch.summary || ""], ["风味标签", batch.flavorTags || ""], ["杯测记录", batch.cuppingNote || ""]
+    ["结束总结", batch.summary || ""], ["风味标签", batch.flavorTags || ""], ["杯测记录", batch.cuppingNote || ""]
   ];
   const rows = [
     ["字段", "内容"], ...metadata, [], ["时间", "温度 °C", "节点 / 备注"],
@@ -1230,7 +1240,6 @@ function comparePrintReport(first, second) {
   return `<article class="print-only print-report compare-print-report">
     <header class="print-report-head">
       <div><small>RoastTrace Compare</small><h1>批次对比</h1><p>${esc(bean(first.beanId).name)} #${esc(first.roastNo || "?")} · ${esc(bean(second.beanId).name)} #${esc(second.roastNo || "?")}</p></div>
-      <strong>${esc(APP_VERSION)}</strong>
     </header>
     <section class="print-compare-chart">${comparisonChart(first, second)}</section>
     <section class="print-compare-cards"><div>${compareCard("批次 A", first)}</div><div>${compareCard("批次 B", second)}</div></section>
@@ -1501,7 +1510,8 @@ function saveEvent(name) {
 function saveBatchSummary(showToast = true) {
   const batch = state.batches.find((item) => item.id === state.detailBatchId);
   if (!batch) return;
-  batch.note = document.querySelector("#batch-note")?.value || "";
+  const noteInput = document.querySelector("#batch-note");
+  if (noteInput) batch.note = noteInput.value || "";
   batch.summary = document.querySelector("#batch-summary")?.value || "";
   batch.lossRate = document.querySelector("#batch-loss-rate")?.value || "";
   batch.flavorTags = document.querySelector("#batch-flavor")?.value || "";
@@ -1701,5 +1711,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=59");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=60");
 render();

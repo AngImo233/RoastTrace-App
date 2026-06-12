@@ -1,5 +1,5 @@
 {
-  "version": "V1.7",
+  "version": "V1.8",
   "releasedAt": "2026-06-12",
-  "notes": "Manual entry now includes water loss percentage alongside key roast events."
+  "notes": "Single-batch PDF layout was redesigned, iPhone print return behavior was improved, and water loss wording now uses 水分减少率 / 水分減少率."
 }
