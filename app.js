@@ -280,7 +280,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.9";
+const APP_VERSION = "V1.10";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -621,6 +621,7 @@ function printNoteBlocks(batch) {
 
 function printReport(batch, entries, events, metrics) {
   const b = bean(batch.beanId), m = machine(batch.machineId);
+  const low = findEvent(events, "最低温度");
   const maillard = findEvent(events, "美拉德");
   const crack = findEvent(events, "一爆");
   const drop = findEvent(events, "出豆");
@@ -1721,5 +1722,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=61");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=62");
 render();

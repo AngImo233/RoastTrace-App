@@ -2,6 +2,12 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.10 - 2026-06-12
+
+- Fixed batch detail pages failing to open after restoring a valid backup because the PDF report template referenced a missing lowest-temperature variable.
+- Verified the fix against the real `roasttrace-backup-2026-06-11.json` backup file and opened all four restored batch detail pages in a local render simulation.
+- Updated cached assets to v62 so existing users can detect and load this release.
+
 ## V1.9 - 2026-06-12
 
 - Relaxed backup restore file selection to accept JSON-like files that iPhone may label as plain text or generic binary.

@@ -1,5 +1,5 @@
 {
-  "version": "V1.9",
+  "version": "V1.10",
   "releasedAt": "2026-06-12",
-  "notes": "Backup restore accepts more iPhone file types, and PDF key points now show partial event data such as temperature without time."
+  "notes": "Fixed opening restored backup batches by restoring the lowest-temperature PDF event reference."
 }
