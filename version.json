@@ -1,5 +1,5 @@
 {
-  "version": "V1.8",
+  "version": "V1.9",
   "releasedAt": "2026-06-12",
-  "notes": "Single-batch PDF layout was redesigned, iPhone print return behavior was improved, and water loss wording now uses 水分减少率 / 水分減少率."
+  "notes": "Backup restore accepts more iPhone file types, and PDF key points now show partial event data such as temperature without time."
 }

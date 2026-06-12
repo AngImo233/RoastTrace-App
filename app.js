@@ -218,6 +218,13 @@ const sortedEntries = (entries = []) => entries.slice().sort((left, right) => {
   if (leftSeconds !== rightSeconds) return leftSeconds - rightSeconds;
   return String(left.event || "").localeCompare(String(right.event || ""));
 });
+const hasEntryTime = (entry = {}) => entry.seconds !== null && entry.seconds !== undefined && entry.seconds !== "";
+const entrySummary = (entry = {}) => {
+  const parts = [];
+  if (hasEntryTime(entry)) parts.push(fmt(Number(entry.seconds) || 0));
+  if (String(entry.temperature || "").trim()) parts.push(`${entry.temperature}°C`);
+  return parts.join(" · ") || "—";
+};
 function controlInput(kind, label, m, value = "") {
   const config = controlSettings(m, kind);
   const current = value === "" || value === undefined ? defaultControlValue(m, kind) : formatControlValue(value, config.step);
@@ -273,7 +280,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.8";
+const APP_VERSION = "V1.9";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -524,7 +531,7 @@ function manualBatch() {
 function manualEventFields(label, key, draft) {
   const time = draft[`${key}Time`] || (draft[`${key}Min`] || draft[`${key}Sec`] ? `${draft[`${key}Min`] || "00"}:${draft[`${key}Sec`] || "00"}` : "");
   const defaultTemp = key === "maillard" ? machine(draft.machineId).maillardTemp : "";
-  return `<div class="paper-event"><strong>${esc(label)}</strong><label><span>时间</span>${timeParts(key, time, true)}</label><label><span>温度</span><span class="temp-with-unit"><input name="${key}Temp" inputmode="decimal" type="number" step="0.1" value="${esc(draft[`${key}Temp`] || defaultTemp)}" placeholder="可选"><b>°C</b></span></label></div>`;
+  return `<div class="paper-event"><strong>${esc(label)}</strong><label><span>时间</span>${timeParts(key, time, true)}</label><label><span>温度</span><span class="temp-with-unit"><input name="${key}Temp" inputmode="decimal" type="number" step="0.1" value="${esc(draft[`${key}Temp`] || "")}" placeholder="${esc(defaultTemp || "可选")}"><b>°C</b></span></label></div>`;
 }
 
 function manualLossField(draft = {}) {
@@ -576,7 +583,7 @@ function findEvent(events = [], name = "") {
 }
 
 function durationBetween(start, end) {
-  return start && end && Number(end.seconds) >= Number(start.seconds) ? fmt(Number(end.seconds) - Number(start.seconds)) : "—";
+  return start && end && hasEntryTime(start) && hasEntryTime(end) && Number(end.seconds) >= Number(start.seconds) ? fmt(Number(end.seconds) - Number(start.seconds)) : "—";
 }
 
 function safeFilePart(value = "") {
@@ -637,7 +644,7 @@ function printReport(batch, entries, events, metrics) {
     ["一爆", crack],
     ["出豆", drop]
   ].filter(([, entry]) => entry);
-  const tempRows = entries.filter((entry) => entry.temperature).slice(0, 24);
+  const tempRows = entries.filter((entry) => entry.temperature && hasEntryTime(entry)).slice(0, 24);
   return `<article class="print-only print-report">
     <header class="print-report-head">
       <div><small>RoastTrace Report</small><h1>${esc(b.name)}</h1><p>${esc(b.country)} · ${esc(b.variety)} · ${esc(b.process)} · ${displayDate(batch.date)} · #${esc(batch.roastNo || "?")}</p></div>
@@ -651,7 +658,7 @@ function printReport(batch, entries, events, metrics) {
       </div>
       <aside class="print-side">
         <section class="print-info">${info.map(([label, value]) => `<div><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join("")}</section>
-        <section class="print-events"><h2>重要ポイント</h2>${keyEvents.length ? keyEvents.map(([label, entry]) => `<div><span>${esc(label)}</span><b>${fmt(entry.seconds)}${entry.temperature ? ` · ${esc(entry.temperature)}°C` : ""}</b></div>`).join("") : `<p>未记录</p>`}</section>
+        <section class="print-events"><h2>重要ポイント</h2>${keyEvents.length ? keyEvents.map(([label, entry]) => `<div><span>${esc(label)}</span><b>${esc(entrySummary(entry))}</b></div>`).join("") : `<p>未记录</p>`}</section>
       </aside>
     </div>
     <div class="print-bottom-grid">
@@ -696,7 +703,7 @@ function chartLine(points) {
 function roastChart(entries) {
   const samples = entries
     .map((entry) => ({ seconds: Number(entry.seconds), temperature: Number(entry.temperature) }))
-    .filter((entry, index) => String(entries[index].temperature || "").trim() && Number.isFinite(entry.seconds) && Number.isFinite(entry.temperature))
+    .filter((entry, index) => hasEntryTime(entries[index]) && String(entries[index].temperature || "").trim() && Number.isFinite(entry.seconds) && Number.isFinite(entry.temperature))
     .sort((a, b) => a.seconds - b.seconds);
   if (samples.length < 2) return `<div class="empty chart-empty">至少记录两次温度后，才能生成曲线。</div>`;
 
@@ -788,7 +795,7 @@ function batchDetail() {
     </section>
     <section class="section">
       <div class="section-head"><h2>关键节点</h2></div>
-      <div class="card detail-events">${events.length ? events.map((entry) => `<div><b>${esc(eventLabel(entry.event))}</b><span>${fmt(entry.seconds)}${entry.temperature ? ` · ${esc(entry.temperature)}°C` : ""}</span></div>`).join("") : `<div class="empty">本批次没有记录关键节点。</div>`}</div>
+      <div class="card detail-events">${events.length ? events.map((entry) => `<div><b>${esc(eventLabel(entry.event))}</b><span>${esc(entrySummary(entry))}</span></div>`).join("") : `<div class="empty">本批次没有记录关键节点。</div>`}</div>
     </section>
     <section class="section">
       <div class="section-head"><h2>异常标记</h2><button class="section-link" data-add-batch-anomaly>＋ 添加问题</button></div>
@@ -802,7 +809,7 @@ function batchDetail() {
       <div class="section-head"><h2>完整温度时间表</h2><span class="subtle">${entries.length} 条记录</span></div>
       <div class="minute-table">
         <div class="minute-row header"><span>时间</span><span>温度</span><span>节点 / 备注</span><span></span></div>
-        ${entries.map((entry) => `<div class="minute-row"><span>${fmt(entry.seconds)}</span><b>${entry.temperature ? `${esc(entry.temperature)}°` : "—"}</b><em>${esc(eventLabel(entry.event))}</em><span></span></div>`).join("")}
+        ${entries.map((entry) => `<div class="minute-row"><span>${hasEntryTime(entry) ? fmt(entry.seconds) : "—"}</span><b>${entry.temperature ? `${esc(entry.temperature)}°` : "—"}</b><em>${esc(eventLabel(entry.event))}</em><span></span></div>`).join("")}
       </div>
     </section>
     <section class="section">
@@ -968,7 +975,7 @@ function exportBatchCsv() {
   ];
   const rows = [
     ["字段", "内容"], ...metadata, [], ["时间", "温度 °C", "节点 / 备注"],
-    ...(batch.entries || []).slice().sort((a, b) => a.seconds - b.seconds).map((entry) => [fmt(entry.seconds), entry.temperature || "", eventLabel(entry.event)])
+    ...(batch.entries || []).slice().sort((a, b) => (Number(a.seconds) || 0) - (Number(b.seconds) || 0)).map((entry) => [hasEntryTime(entry) ? fmt(entry.seconds) : "", entry.temperature || "", eventLabel(entry.event)])
   ];
   const csv = `\uFEFF${rows.map((row) => row.map(csvEscape).join(",")).join("\n")}`;
   const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
@@ -1041,7 +1048,8 @@ async function importBackup(event) {
   event.target.value = "";
   if (!file) return;
   try {
-    const raw = JSON.parse(await file.text());
+    const text = (await file.text()).replace(/^\uFEFF/, "").trim();
+    const raw = JSON.parse(text);
     const data = raw?.format === "roasttrace-backup" ? raw.data : raw?.data || raw;
     if (!data || !Array.isArray(data.beans) || !Array.isArray(data.machines) || !Array.isArray(data.batches)) throw new Error("Invalid backup");
     state = normalizeState({
@@ -1121,8 +1129,9 @@ function saveManualBatch() {
     ["出豆", "drop"]
   ].forEach(([event, key]) => {
     const seconds = readPartsTime(data, key);
-    const temperature = String(data[`${key}Temp`] || (key === "maillard" ? m.maillardTemp : "")).trim();
-    if (seconds !== null) entries.push({ id: uid(), seconds, temperature, event });
+    const rawTemperature = String(data[`${key}Temp`] || "").trim();
+    const temperature = rawTemperature || (seconds !== null && key === "maillard" ? String(m.maillardTemp || "").trim() : "");
+    if (seconds !== null || rawTemperature) entries.push({ id: uid(), seconds, temperature, event });
   });
   const drop = entries.find((entry) => entry.event === "出豆");
   const maxSeconds = Math.max(0, ...entries.map((entry) => Number(entry.seconds) || 0));
@@ -1192,7 +1201,7 @@ function machines() {
 }
 
 function comparisonChart(first, second) {
-  const series = [first, second].map((batch) => (batch.entries || []).map((entry) => ({ seconds: Number(entry.seconds), temperature: Number(entry.temperature), hasTemperature: String(entry.temperature || "").trim() })).filter((entry) => entry.hasTemperature && Number.isFinite(entry.seconds) && Number.isFinite(entry.temperature)).sort((a, b) => a.seconds - b.seconds));
+  const series = [first, second].map((batch) => (batch.entries || []).map((entry) => ({ seconds: Number(entry.seconds), temperature: Number(entry.temperature), hasTime: hasEntryTime(entry), hasTemperature: String(entry.temperature || "").trim() })).filter((entry) => entry.hasTime && entry.hasTemperature && Number.isFinite(entry.seconds) && Number.isFinite(entry.temperature)).sort((a, b) => a.seconds - b.seconds));
   const all = series.flat();
   if (all.length < 2) return `<div class="empty chart-empty">选择含有温度记录的批次后显示曲线。</div>`;
   const width = 360, height = 220, left = 38, right = 16, top = 18, bottom = 32;
@@ -1217,6 +1226,7 @@ function compareTemperatureRows(first, second, limit = Infinity) {
   [first, second].forEach((batch, batchIndex) => {
     (batch.entries || []).forEach((entry) => {
       if (!String(entry.temperature || "").trim()) return;
+      if (!hasEntryTime(entry)) return;
       const seconds = Number(entry.seconds) || 0;
       const key = fmt(seconds);
       const row = rows.get(key) || { seconds, time: key, a: "", aEvent: "", b: "", bEvent: "" };
@@ -1265,7 +1275,7 @@ function compareCard(title, batch) {
   const crack = (batch.entries || []).find((entry) => entry.event === "一爆");
   const drop = (batch.entries || []).find((entry) => entry.event === "出豆");
   const b = bean(batch.beanId);
-  return `<div class="card compare-card"><span>${title}</span><h3>${esc(b.country)} · ${esc(b.region)}</h3><p>${esc(b.name)} · ${displayDate(batch.date)} · #${esc(batch.roastNo || "?")}</p><dl><dt>最低温度</dt><dd>${low ? `${fmt(low.seconds)} · ${esc(low.temperature || "—")}°C` : "—"}</dd><dt>美拉德</dt><dd>${maillard ? `${fmt(maillard.seconds)} · ${esc(maillard.temperature || "—")}°C` : "—"}</dd><dt>一爆</dt><dd>${crack ? `${fmt(crack.seconds)} · ${esc(crack.temperature || "—")}°C` : "—"}</dd><dt>出豆</dt><dd>${drop ? `${fmt(drop.seconds)} · ${esc(drop.temperature || "—")}°C` : "—"}</dd></dl></div>`;
+  return `<div class="card compare-card"><span>${title}</span><h3>${esc(b.country)} · ${esc(b.region)}</h3><p>${esc(b.name)} · ${displayDate(batch.date)} · #${esc(batch.roastNo || "?")}</p><dl><dt>最低温度</dt><dd>${low ? esc(entrySummary(low)) : "—"}</dd><dt>美拉德</dt><dd>${maillard ? esc(entrySummary(maillard)) : "—"}</dd><dt>一爆</dt><dd>${crack ? esc(entrySummary(crack)) : "—"}</dd><dt>出豆</dt><dd>${drop ? esc(entrySummary(drop)) : "—"}</dd></dl></div>`;
 }
 
 function machineEdit() {
@@ -1324,7 +1334,7 @@ function settings() {
       <div class="backup-actions">
         <button class="primary" type="button" data-export-backup>备份全部数据</button>
         <button class="secondary" type="button" data-import-backup>恢复备份</button>
-        <input class="backup-file" type="file" accept="application/json,.json" data-import-backup-file>
+        <input class="backup-file" type="file" accept=".json,.txt,application/json,text/plain,application/octet-stream" data-import-backup-file>
       </div>
     </div></section>
     <section class="section"><button class="about-entry-card" data-route="about"><span><b>关于与反馈</b><small>开发者信息、邮箱、反馈表单。</small></span><em>打开 ›</em></button></section>
@@ -1660,7 +1670,7 @@ function bind() {
     [["low", "最低温度"], ["maillard", "美拉德"], ["crack", "一爆"], ["drop", "出豆"]].forEach(([key, label]) => {
       const entry = (batch.entries || []).find((item) => label === "美拉德" ? String(item.event).includes(label) : item.event === label);
       if (!entry) return;
-      [draft[`${key}Min`], draft[`${key}Sec`]] = splitTime(fmt(entry.seconds));
+      if (hasEntryTime(entry)) [draft[`${key}Min`], draft[`${key}Sec`]] = splitTime(fmt(entry.seconds));
       draft[`${key}Temp`] = entry.temperature || "";
     });
     state.editBatchId = batch.id; state.manualDraft = draft; state.manualRows = sortedEntries(batch.entries || []).filter((entry) => !entry.event).filter((entry) => Number(entry.seconds) > 0); state.route = "manual"; save(); render();
@@ -1711,5 +1721,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=60");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=61");
 render();

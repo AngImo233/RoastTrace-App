@@ -2,6 +2,14 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.9 - 2026-06-12
+
+- Relaxed backup restore file selection to accept JSON-like files that iPhone may label as plain text or generic binary.
+- Backup restore now strips UTF-8 BOM before parsing older backup files.
+- Manual key events are saved when either time or temperature is present, so PDF key points can show temperature-only values such as lowest temperature.
+- Temperature-only key events are kept out of charts and time tables to avoid displaying them as false `00:00` points.
+- Updated cached assets to v61 so existing users can detect and load this release.
+
 ## V1.8 - 2026-06-12
 
 - Made the dedicated PDF print document visible after iPhone save/share flows, avoiding a blank app-colored screen.
