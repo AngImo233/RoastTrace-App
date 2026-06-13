@@ -30,12 +30,33 @@ button { border: 0; cursor: pointer; }
 .icon-btn { min-width: 42px; font-size: 24px; }
 .text-btn.accent { color: var(--caramel); }
 .eyebrow { margin: 16px 0 7px; color: var(--caramel); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-h1 { margin: 0; font-size: 32px; line-height: 1.16; letter-spacing: -.04em; }
+h1 { margin: 0; font-size: 32px; line-height: 1.16; letter-spacing: 0; }
 .home-quote { max-width: 440px; font-size: 24px; line-height: 1.2; }
 .home-quote small { display: block; margin-top: 7px; color: var(--muted); font-size: 13px; font-weight: 600; letter-spacing: .02em; }
-h2 { margin: 0; font-size: 20px; letter-spacing: -.025em; }
+h2 { margin: 0; font-size: 20px; letter-spacing: 0; }
 h3 { margin: 0; font-size: 16px; }
 p { margin: 0; }
+.app-shell.lang-ja .eyebrow { letter-spacing: .08em; text-transform: none; }
+.app-shell.lang-ja h1 { font-size: 28px; line-height: 1.32; word-break: keep-all; overflow-wrap: anywhere; }
+.app-shell.lang-ja .home-quote { font-size: 23px; line-height: 1.36; }
+.app-shell.lang-ja.route-settings h1,
+.app-shell.lang-ja.route-bean-edit h1,
+.app-shell.lang-ja.route-machine-edit h1,
+.app-shell.lang-ja.route-about h1,
+.app-shell.lang-ja.route-compare h1,
+.app-shell.lang-ja.route-data h1 { font-size: 26px; line-height: 1.34; }
+.app-shell.lang-ja .feedback-card.public-card h2,
+.app-shell.lang-ja .backup-card h2 { font-size: 21px; line-height: 1.36; word-break: keep-all; overflow-wrap: anywhere; }
+.app-shell.lang-ja .data-entry-card b,
+.app-shell.lang-ja .data-action-card strong,
+.app-shell.lang-ja .about-entry-card b { line-height: 1.35; letter-spacing: 0; word-break: keep-all; overflow-wrap: anywhere; }
+.app-shell.lang-ja .machine-row h3,
+.app-shell.lang-ja .field span,
+.app-shell.lang-ja .tag,
+.app-shell.lang-ja .screen-title { letter-spacing: 0; }
+.app-shell.lang-ja .subtle,
+.app-shell.lang-ja small,
+.app-shell.lang-ja p { line-height: 1.65; }
 .subtle { color: var(--muted); font-size: 13px; line-height: 1.5; }
 .section { margin-top: 28px; }
 .section-head { justify-content: space-between; margin-bottom: 12px; }
@@ -51,7 +72,7 @@ p { margin: 0; }
 .hero-card .tag { background: rgba(255,255,255,.13); color: #fff6eb; }
 .hero-secondary { width: 100%; min-height: 44px; margin-top: 8px; border: 1px solid rgba(255,255,255,.24); border-radius: 15px; background: transparent; color: #fff8ef; font-weight: 800; }
 .data-entry-card, .data-action-card { display: grid; width: 100%; gap: 6px; padding: 16px; border: 1px solid var(--line); border-radius: 17px; background: var(--cream); color: var(--coffee); text-align: left; }
-.data-entry-card b, .data-action-card strong { font-size: 24px; letter-spacing: -.03em; }
+.data-entry-card b, .data-action-card strong { font-size: 24px; letter-spacing: 0; }
 .data-entry-card small, .data-action-card small { color: var(--muted); line-height: 1.5; }
 .data-entry-card em, .data-action-card em { color: var(--caramel); font-size: 12px; font-style: normal; font-weight: 800; }
 .data-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
@@ -472,6 +493,16 @@ p { margin: 0; }
 .hidden { display: none !important; }
 
 @media (max-width: 430px) {
+  .app-shell.lang-ja h1 { font-size: 26px; line-height: 1.34; }
+  .app-shell.lang-ja.route-settings h1,
+  .app-shell.lang-ja.route-bean-edit h1,
+  .app-shell.lang-ja.route-machine-edit h1,
+  .app-shell.lang-ja.route-about h1,
+  .app-shell.lang-ja.route-compare h1,
+  .app-shell.lang-ja.route-data h1 { font-size: 24px; line-height: 1.36; }
+  .app-shell.lang-ja .feedback-card.public-card h2,
+  .app-shell.lang-ja .backup-card h2 { font-size: 20px; }
+  .app-shell.lang-ja .home-quote { font-size: 22px; }
   .summary-hero { grid-template-columns: repeat(2, 1fr); }
   .summary-hero strong { font-size: 20px; }
   .same-bean-card { grid-template-columns: 1fr; }

@@ -1,5 +1,5 @@
 {
-  "version": "V1.14",
+  "version": "V1.15",
   "releasedAt": "2026-06-14",
-  "notes": "Refined Japanese and English interface wording and removed visible English section labels from Japanese screens."
+  "notes": "Improved Japanese mobile typography and shortened long interface copy for better wrapping."
 }

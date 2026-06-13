@@ -202,7 +202,7 @@ function shell(content, route = state.route) {
       ${navButton("machines","♨","烘焙机")}
       ${navButton("settings","⚙","设置")}
     </div></nav>`;
-  return `<div class="app-shell ${route === "live" ? "live-shell" : ""}">${content}${nav}</div>`;
+  return `<div class="app-shell route-${esc(route)} lang-${esc(state.language || "ja")} ${route === "live" ? "live-shell" : ""}">${content}${nav}</div>`;
 }
 const navButton = (route, icon, label) => `<button data-route="${route}" class="${state.route === route ? "active" : ""}"><b>${icon}</b>${label}</button>`;
 const backBar = (title, action = "") => `<header class="topbar"><button class="icon-btn" data-back>‹</button><div class="screen-title">${title}</div>${action || '<span class="icon-btn"></span>'}</header>`;
@@ -346,7 +346,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.14";
+const APP_VERSION = "V1.15";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -427,6 +427,29 @@ Object.assign(translations.ja, {
   "批次详情":"バッチ詳細","批次信息":"バッチ情報","国家 / 产区":"国 / 地域","烘焙机":"焙煎機","杯测记录":"カッピングメモ","风味标签":"風味タグ","完整温度时间表":"温度ログ全体","保存文字":"メモを保存","记录本炉判断，以及下一炉想调整的方向":"このバッチの所感と次回の調整方針を記録","甜感、酸质、余韵、干净度":"甘さ、酸質、余韻、クリーンさ","烘焙报告":"焙煎レポート","未记录":"未記録","温度记录":"温度記録",
   "不同机器，":"焙煎機ごとに、","使用不同的判断规则。":"記録ルールを分ける。","烘焙机设置":"焙煎機設定","让每台机器使用":"焙煎機ごとに","自己的记录方式。":"専用の記録方法を使う。","咖啡豆档案":"コーヒー豆ライブラリ","把豆子的来历，":"コーヒー豆の情報を、","留在每一炉数据旁边。":"各バッチの記録と一緒に残す。","产地类型":"生産地タイプ","农园 / 庄园":"農園 / エステート",
   "现在离线记录，":"まずはオフラインで記録し、","以后再扩展同步。":"同期は今後追加します。","当前数据仅保存在这台设备，不依赖网络。":"現在のデータはこの端末内だけに保存され、ネット接続は不要です。","批次详情中可生成包含曲线、表格和总结的报告。":"バッチ詳細から、カーブ・表・まとめを含むレポートを作成できます。","纸张录入页面可导入，批次详情可下载当前批次数据。":"手動入力画面でCSVを読み込み、バッチ詳細で現在のデータを書き出せます。","匿名访问统计":"匿名アクセス解析","只统计匿名打开次数、主屏幕打开和版本，不上传烘焙数据。":"匿名の起動回数、ホーム画面起動、バージョンのみを集計し、焙煎データはアップロードしません。","为精品咖啡烘焙记录、曲线、杯测和批次复盘设计的本地应用。":"スペシャルティコーヒーの焙煎記録、カーブ、カッピング、バッチの振り返りのためのローカルアプリです。","反馈与联系":"フィードバック・連絡","开发者信息、邮箱、反馈表单。":"開発者情報、メール、フィードバックフォーム。"
+});
+Object.assign(translations.en, {
+  "每台机器，":"Each roaster",
+  "使用自己的记录方式。":"gets its own logging style.",
+  "把豆子的资料，":"Keep bean details",
+  "留在烘焙记录里。":"inside the roast log.",
+  "离线记录，":"Record offline.",
+  "同步以后追加。":"Sync comes later.",
+  "扫码打开 RoastTrace":"Open RoastTrace",
+  "扫码打开公开网页版 App。可添加到 iPhone 主屏幕。":"Open the public web app. Add it to the iPhone Home Screen."
+});
+Object.assign(translations.ja, {
+  "每台机器，":"焙煎機ごとに、",
+  "使用自己的记录方式。":"専用の記録方法を使う。",
+  "把豆子的资料，":"豆の情報を、",
+  "留在烘焙记录里。":"焙煎記録に残す。",
+  "离线记录，":"オフラインで記録。",
+  "同步以后追加。":"同期は今後追加。",
+  "扫码打开 RoastTrace":"QRコードで開く",
+  "扫码打开公开网页版 App。可添加到 iPhone 主屏幕。":"公開Webアプリを開けます。ホーム画面に追加できます。",
+  "COFFEE LIBRARY":"コーヒー豆ライブラリ",
+  "コーヒー豆の来歴を、":"豆の情報を、",
+  "各バッチの記録と一緒に残す。":"焙煎記録に残す。"
 });
 const homeQuote = () => state.language === "ja"
   ? "私はコーヒースプーンで<br>人生を測ってきた。<small>— T. S. Eliot</small>"
@@ -1506,7 +1529,7 @@ function compareCard(title, batch) {
 function machineEdit() {
   const m = machine(state.editMachineId);
   return shell(`${backBar("烘焙机设置", '<button class="text-btn accent" data-machine-save>保存</button>')}
-    <div class="eyebrow">烘焙机设置</div><h1>让每台机器使用<br>自己的记录方式。</h1>
+    <div class="eyebrow">烘焙机设置</div><h1>每台机器，<br>使用自己的记录方式。</h1>
     <form id="machine-form"><section class="section"><div class="field-grid">
       ${field("烘焙机名称", "name", m.name, "text", true)}
       ${field("美拉德节点温度 °C", "maillardTemp", m.maillardTemp, "number", true)}
@@ -1530,7 +1553,7 @@ function beanEdit() {
   const b = state.editBeanId ? bean(state.editBeanId) : { id: uid(), name: "", country: "", region: "", locationType: "处理厂 / 合作社", locationName: "", variety: "", process: "", altitude: "", note: "" };
   state.beanDraft = b; save();
   return shell(`${backBar("咖啡豆档案", '<button class="text-btn accent" data-bean-save>保存</button>')}
-    <div class="eyebrow">咖啡豆档案</div><h1>把豆子的来历，<br>留在每一炉数据旁边。</h1>
+    <div class="eyebrow">咖啡豆档案</div><h1>把豆子的资料，<br>留在烘焙记录里。</h1>
     <form id="bean-form"><section class="section"><div class="field-grid">
       ${field("档案名称", "name", b.name, "text", true)}
       ${field("国家", "country", b.country)}
@@ -1546,7 +1569,7 @@ function beanEdit() {
 
 function settings() {
   return shell(`<header class="topbar"><div class="brand">设置</div></header>
-    <div class="eyebrow">本地优先</div><h1>现在离线记录，<br>以后再扩展同步。</h1>
+    <div class="eyebrow">本地优先</div><h1>离线记录，<br>同步以后追加。</h1>
     <section class="section"><div class="card">
       <article class="machine-row"><div><h3>本地保存</h3><small>当前数据仅保存在这台设备，不依赖网络。</small></div><span class="tag">已启用</span></article>
       <article class="machine-row"><div><h3>PDF 报告</h3><small>批次详情中可生成包含曲线、表格和总结的报告。</small></div><span class="tag">已启用</span></article>
@@ -1579,7 +1602,7 @@ function about() {
       <div><span>邮箱</span><strong>${feedbackEmail}</strong></div>
     </div></section>
     <section class="section feedback-card public-card">
-      <div><span class="tag">公开版本 · ${APP_VERSION}</span><h2>扫码打开 RoastTrace</h2><p>这个二维码会打开公开网页版 App。用户可以添加到 iPhone 主屏幕。</p></div>
+      <div><span class="tag">公开版本 · ${APP_VERSION}</span><h2>扫码打开 RoastTrace</h2><p>扫码打开公开网页版 App。可添加到 iPhone 主屏幕。</p></div>
       <img src="./app-qr.png" alt="RoastTrace public app QR">
       <div class="feedback-actions app-actions">
         <button class="primary link-button" type="button" data-check-update>检查更新</button>
@@ -1947,5 +1970,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=68");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=69");
 render();

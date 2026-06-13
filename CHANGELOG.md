@@ -2,6 +2,13 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.15 - 2026-06-14
+
+- Improved Japanese mobile typography for headings, cards, labels, and smaller screens.
+- Shortened Japanese copy on settings, bean library, roaster settings, and public QR pages to avoid awkward line breaks.
+- Added route and language classes so future layout tuning can target specific screens safely.
+- Updated cached assets to v69 so existing users can detect and load this release.
+
 ## V1.14 - 2026-06-14
 
 - Replaced visible English section labels with localized interface wording.
