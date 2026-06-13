@@ -2,7 +2,7 @@
 
 ## Current Version
 
-V1.11
+V1.12
 
 ## Public URLs
 

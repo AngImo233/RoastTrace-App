@@ -2,6 +2,13 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.12 - 2026-06-14
+
+- Added a local random anonymous analytics ID for open-count reporting.
+- Added GA4 parameters for total opens, weekly opens, active weeks, open-count bucket, first-open week, app version, language, and display mode.
+- Added `first_open`, `app_installed_open`, and enriched `app_open` events without uploading roast data.
+- Updated cached assets to v64 so existing users can detect and load this release.
+
 ## V1.11 - 2026-06-12
 
 - Restored brown filled metric cards in the single-batch PDF and forced print color adjustment for PDF output.
