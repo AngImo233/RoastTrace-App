@@ -1,7 +1,7 @@
 {
-  "name": "RoastTrace · 咖啡烘焙记录",
+  "name": "RoastTrace · 焙煎記録",
   "short_name": "RoastTrace",
-  "description": "适合精品咖啡工作流的离线咖啡烘焙记录工具",
+  "description": "スペシャルティコーヒー向けのオフライン焙煎記録アプリ",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f4efe7",

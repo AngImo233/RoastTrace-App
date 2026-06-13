@@ -2,6 +2,14 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.14 - 2026-06-14
+
+- Replaced visible English section labels with localized interface wording.
+- Refined Japanese wording across the main screens, PDF text, same-bean review, and settings.
+- Expanded English translations for the main workflows and status text.
+- Updated the web app title and manifest language to Japanese defaults.
+- Updated cached assets to v68 so existing users can detect and load this release.
+
 ## V1.13 - 2026-06-14
 
 - Added a same-bean review page from the local data library.

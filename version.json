@@ -1,5 +1,5 @@
 {
-  "version": "V1.13",
+  "version": "V1.14",
   "releasedAt": "2026-06-14",
-  "notes": "Added same-bean review with per-bean summaries, previous-batch deltas, and quick comparison."
+  "notes": "Refined Japanese and English interface wording and removed visible English section labels from Japanese screens."
 }
