@@ -2,6 +2,14 @@
 
 This file records public RoastTrace web app updates.
 
+## V1.13 - 2026-06-14
+
+- Added a same-bean review page from the local data library.
+- Added bean grouping in the local data library.
+- Added same-bean summary metrics on batch detail pages: batch count, average drop time, average development time, and average moisture loss.
+- Added previous-batch deltas and a quick compare action from the same-bean review list.
+- Updated cached assets to v65 so existing users can detect and load this release.
+
 ## V1.12 - 2026-06-14
 
 - Added a local random anonymous analytics ID for open-count reporting.

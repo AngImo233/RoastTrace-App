@@ -339,7 +339,7 @@ const feedbackUrl = "https://docs.google.com/forms/d/e/1FAIpQLSerqRT8IalIOMgOuqq
 const feedbackEmail = "ouokubou@gmail.com";
 const publicAppUrl = "https://angimo233.github.io/RoastTrace-App/";
 const publicRepoUrl = "https://github.com/AngImo233/RoastTrace-App";
-const APP_VERSION = "V1.12";
+const APP_VERSION = "V1.13";
 const ANALYTICS_MEASUREMENT_ID = "G-H4G7309WFC";
 function liveMachineQuick(m) {
   return `<div class="sheet-backdrop" data-close-live-machine-settings></div>
@@ -391,7 +391,8 @@ Object.assign(translations.ja, {
   "记录一爆时间":"1ハゼ時刻を記録","让每台机器使用":"焙煎機ごとに","自己的记录方式。":"固有の記録方法を使う。",
   "记录火力、风门、环境等信息":"火力、ダンパー、環境などを記録","记录本炉判断，以及下一炉想调整的方向":"このバッチの所感と次回の調整方針を記録","记录关键节点":"重要イベントを記録","输入":"入力","先输入当前温度":"現在温度を入力してください","请填写记录时间":"記録時刻を入力してください","本炉记录已保存到手机":"このバッチを端末に保存しました","例如：":"例：",
   "烘焙信息":"焙煎情報","烘焙中可修改":"焙煎中も変更できます","机器设置":"焙煎機設定","烘焙机快速设置":"焙煎機クイック設定","烘焙中会立即应用到当前滑杆。":"焙煎中のスライダーへすぐ反映されます。","保存设置":"設定を保存","取消":"キャンセル","点标签即记录":"タグをタップして記録","＋问题":"＋問題","操作记录":"操作記録","记录操作":"操作を記録","滑杆记录":"スライダー記録","火力":"火力","风门 / 风量":"ダンパー / 風量","风门":"ダンパー","异常标记":"異常メモ","添加问题":"問題を追加","自定义":"自由入力","记录什么异常？":"どんな異常を記録しますか？","新增常用问题标签":"よく使う問題タグを追加","给这个批次补充什么问题？":"このバッチに補足する問題は？","问题已补充":"問題を補足しました","本炉没有异常标记。":"このバッチには異常メモがありません。","操作记录已保存":"操作記録を保存しました","升温停滞":"昇温停滞","升温过快":"昇温過多","一爆偏早":"1ハゼ早い","一爆偏晚":"1ハゼ遅い","烟感偏重":"煙感強め","火力误操作":"火力ミス","风门误操作":"ダンパーミス","异常：":"異常：","操作：":"操作：","火力记录方式":"火力の記録方式","风门 / 风量记录方式":"ダンパー / 風量の記録方式","温度最小值 °C":"温度の最小値 °C","温度最大值 °C":"温度の最大値 °C","温度精度":"温度の精度","数字滑杆":"数値スライダー","百分比滑杆":"パーセントスライダー","压力滑杆":"圧力スライダー","转速滑杆":"回転数スライダー","整数":"整数","小数":"小数","一位小数":"小数1桁","火力最小值":"火力の最小値","火力最大值":"火力の最大値","火力精度":"火力の精度","风门最小值":"ダンパーの最小値","风门最大值":"ダンパーの最大値","风门精度":"ダンパーの精度","自由输入":"自由入力","档":"段",
-  "目标设定":"目標設定","烘焙中会显示对照":"焙煎中に目標を表示します","烘焙中对照":"焙煎中の目標","目标 / 实际":"目標 / 実績","目标一爆":"目標 1ハゼ","目标出豆":"目標 煎りあげ","目标发展":"目標 発展","发展":"発展","美拉德时长":"メイラード時間","水分减少率 %":"水分減少率 %","水分减少率":"水分減少率","失重率 %":"水分減少率 %","失重率":"水分減少率","烘焙结束后填写":"焙煎後に入力","杯测记录":"カッピング記録","风味标签":"風味タグ","同豆复盘":"同じ豆の復盤","同一支豆子的其他批次会出现在这里。":"同じ豆の他のバッチがここに表示されます。","甜感、酸质、余韵、干净度":"甘さ、酸質、余韻、クリーンさ","按时间":"時間別","按国家":"国別","按品种":"品種別","炉":"バッチ",
+  "目标设定":"目標設定","烘焙中会显示对照":"焙煎中に目標を表示します","烘焙中对照":"焙煎中の目標","目标 / 实际":"目標 / 実績","目标一爆":"目標 1ハゼ","目标出豆":"目標 煎りあげ","目标发展":"目標 発展","发展":"発展","美拉德时长":"メイラード時間","水分减少率 %":"水分減少率 %","水分减少率":"水分減少率","失重率 %":"水分減少率 %","失重率":"水分減少率","烘焙结束后填写":"焙煎後に入力","杯测记录":"カッピング記録","风味标签":"風味タグ","同豆复盘":"同じ豆の復盤","同一支豆子的其他批次会出现在这里。":"同じ豆の他のバッチがここに表示されます。","甜感、酸质、余韵、干净度":"甘さ、酸質、余韻、クリーンさ","按时间":"時間別","按国家":"国別","按品种":"品種別","按豆子":"豆別","炉":"バッチ",
+  "找出同一支豆子的重复烘焙。":"同じ豆の複数バッチを見つける。","查看 ›":"見る ›","准备中":"準備中","复盘对象":"復盤対象","组":"組","已记录":"記録済み","最近一炉":"最新バッチ","平均出豆":"平均煎りあげ","平均发展":"平均デベロップメント","平均水分减少率":"平均水分減少率","上一炉变化":"前回との差","比上一炉":"前回比","更长":"長い","更短":"短い","更高":"高い","更低":"低い","几乎相同":"ほぼ同じ","打开这一炉":"このバッチを開く","和当前对比":"現在と比較","没有可对比的上一炉。":"比較できる前回バッチがありません。","至少保存同一支豆子的两炉后，这里会显示可复盘对象。":"同じ豆を2バッチ以上保存すると、ここに復盤対象が表示されます。","同豆批次数":"同豆バッチ数","点击任意一炉可打开详情，也可以直接和当前批次对比。":"任意のバッチを開くか、現在のバッチと直接比較できます。",
   "横轴为烘焙时间":"横軸は焙煎時間","条记录":"件の記録","至少记录两次温度后，才能生成曲线。":"温度を2回以上記録すると、カーブを表示できます。","RoR 按相邻两次温度记录自动计算。每分钟至少记录一次温度，曲线会更有参考价值。":"RoR は前後の温度記録から自動計算されます。1分に1回以上記録すると、より参考になるカーブになります。","输入温度，开始建立本炉曲线。":"温度を入力して、このバッチのカーブを作成します。","本批次没有记录关键节点。":"このバッチには重要イベントが記録されていません。"
 });
 const homeQuote = () => "I have measured out my life<br>with coffee spoons.<small>— T. S. Eliot</small>";
@@ -810,6 +811,107 @@ function roastChart(entries) {
   </div>`;
 }
 
+const eventTime = (batch, name) => {
+  const event = findEvent(batch.entries || [], name);
+  return event && hasEntryTime(event) ? Number(event.seconds) || 0 : null;
+};
+const eventTemp = (batch, name) => {
+  const event = findEvent(batch.entries || [], name);
+  const temperature = Number(event?.temperature);
+  return Number.isFinite(temperature) ? temperature : null;
+};
+const numericLoss = (batch) => {
+  if (!String(batch.lossRate ?? "").trim()) return null;
+  const value = Number(batch.lossRate);
+  return Number.isFinite(value) ? value : null;
+};
+const average = (values) => {
+  const clean = values.filter((value) => Number.isFinite(value));
+  return clean.length ? clean.reduce((sum, value) => sum + value, 0) / clean.length : null;
+};
+const fmtAvgTime = (values) => {
+  const value = average(values);
+  return value === null ? "—" : fmt(Math.round(value));
+};
+const fmtAvgLoss = (values) => {
+  const value = average(values);
+  return value === null ? "—" : `${value.toFixed(1)}%`;
+};
+const metricDiffText = (current, previous, formatter, higher = "更长", lower = "更短") => {
+  if (!Number.isFinite(current) || !Number.isFinite(previous)) return "—";
+  const diff = current - previous;
+  if (Math.abs(diff) < 0.05) return "几乎相同";
+  return `${diff > 0 ? higher : lower} ${formatter(Math.abs(diff))}`;
+};
+function batchReviewMetrics(batch) {
+  const crack = eventTime(batch, "一爆");
+  const drop = eventTime(batch, "出豆");
+  const maillard = eventTime(batch, "美拉德");
+  const duration = Number(batch.duration) || drop || 0;
+  const development = crack !== null && drop !== null && drop >= crack ? drop - crack : null;
+  const maillardTime = maillard !== null && crack !== null && crack >= maillard ? crack - maillard : null;
+  return {
+    duration,
+    crack,
+    drop,
+    dropTemp: eventTemp(batch, "出豆"),
+    development,
+    maillardTime,
+    loss: numericLoss(batch)
+  };
+}
+function sameBeanBatchesFor(beanId) {
+  return state.batches
+    .filter((item) => item.beanId === beanId)
+    .sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0));
+}
+function sameBeanSummary(beanId) {
+  const batches = sameBeanBatchesFor(beanId);
+  const metrics = batches.map(batchReviewMetrics);
+  return {
+    batches,
+    count: batches.length,
+    avgDuration: fmtAvgTime(metrics.map((item) => item.duration)),
+    avgDevelopment: fmtAvgTime(metrics.map((item) => item.development)),
+    avgLoss: fmtAvgLoss(metrics.map((item) => item.loss))
+  };
+}
+function sameBeanDeltaCard(current, previous) {
+  if (!previous) return `<div class="same-bean-delta empty compact-empty">没有可对比的上一炉。</div>`;
+  const currentMetrics = batchReviewMetrics(current);
+  const previousMetrics = batchReviewMetrics(previous);
+  const pairs = [
+    ["总时间", metricDiffText(currentMetrics.duration, previousMetrics.duration, (value) => fmt(Math.round(value)))],
+    ["一爆", metricDiffText(currentMetrics.crack, previousMetrics.crack, (value) => fmt(Math.round(value)))],
+    ["发展时间", metricDiffText(currentMetrics.development, previousMetrics.development, (value) => fmt(Math.round(value)))],
+    ["出豆温度", metricDiffText(currentMetrics.dropTemp, previousMetrics.dropTemp, (value) => `${value.toFixed(1)}°C`, "更高", "更低")],
+    ["水分减少率", metricDiffText(currentMetrics.loss, previousMetrics.loss, (value) => `${value.toFixed(1)}%`, "更高", "更低")]
+  ];
+  return `<div class="same-bean-delta">
+    <div><span>上一炉变化</span><b>${displayDate(previous.date)} · #${esc(previous.roastNo || "?")}</b></div>
+    ${pairs.map(([label, value]) => `<p><span>${esc(label)}</span><strong>${esc(value)}</strong></p>`).join("")}
+  </div>`;
+}
+function sameBeanReviewPanel(batch) {
+  const summary = sameBeanSummary(batch.beanId);
+  const otherBatches = summary.batches.filter((item) => item.id !== batch.id);
+  const previous = otherBatches[0];
+  return `<section class="section">
+    <div class="section-head"><h2>同豆复盘</h2><span class="subtle">${summary.count} 炉</span></div>
+    ${summary.count > 1 ? `<div class="same-bean-review">
+      <div class="same-bean-stats">
+        <div><span>同豆批次数</span><strong>${summary.count}</strong></div>
+        <div><span>平均出豆</span><strong>${summary.avgDuration}</strong></div>
+        <div><span>平均发展</span><strong>${summary.avgDevelopment}</strong></div>
+        <div><span>平均水分减少率</span><strong>${summary.avgLoss}</strong></div>
+      </div>
+      ${sameBeanDeltaCard(batch, previous)}
+      <p class="subtle">点击任意一炉可打开详情，也可以直接和当前批次对比。</p>
+      <div class="same-bean-list">${otherBatches.slice(0, 8).map((item) => sameBeanCard(item, batch.id)).join("")}</div>
+    </div>` : `<div class="empty card">同一支豆子的其他批次会出现在这里。</div>`}
+  </section>`;
+}
+
 function batchDetail() {
   const batch = state.batches.find((item) => item.id === state.detailBatchId);
   if (!batch) { state.route = "home"; save(); return home(); }
@@ -817,10 +919,6 @@ function batchDetail() {
   const entries = sortedEntries(batch.entries || []);
   const events = entries.filter((entry) => entry.event);
   const anomalies = events.filter((entry) => isAnomalyEvent(entry.event));
-  const sameBeanBatches = state.batches
-    .filter((item) => item.beanId === batch.beanId && item.id !== batch.id)
-    .sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0))
-    .slice(0, 6);
   const low = findEvent(events, "最低温度");
   const maillard = findEvent(events, "美拉德");
   const crack = findEvent(events, "一爆");
@@ -886,10 +984,7 @@ function batchDetail() {
         <h3>杯测记录</h3><p>${esc(batch.cuppingNote || "—")}</p>
       </div>
     </section>
-    <section class="section">
-      <div class="section-head"><h2>同豆复盘</h2><span class="subtle">${sameBeanBatches.length} 条记录</span></div>
-      <div class="same-bean-list">${sameBeanBatches.length ? sameBeanBatches.map(sameBeanCard).join("") : `<div class="empty card">同一支豆子的其他批次会出现在这里。</div>`}</div>
-    </section>
+    ${sameBeanReviewPanel(batch)}
     <section class="section print-hide">
       <button class="primary" data-print>生成完整 PDF 报告</button>
       <button class="secondary export-button" data-export-csv>下载当前批次 CSV</button>
@@ -899,17 +994,20 @@ function batchDetail() {
     ${printReport(batch, entries, events, metrics)}`, "batch-detail");
 }
 
-function sameBeanCard(batch) {
+function sameBeanCard(batch, currentId = "") {
   const events = batch.entries || [];
   const crack = events.find((entry) => entry.event === "一爆");
   const drop = events.find((entry) => entry.event === "出豆");
   const development = crack && drop && drop.seconds >= crack.seconds ? fmt(drop.seconds - crack.seconds) : "—";
   const loss = batch.lossRate ? `${batch.lossRate}%` : "—";
-  return `<button class="same-bean-card" data-batch-detail="${batch.id}">
-    <span>${displayDate(batch.date)} · #${esc(batch.roastNo || "?")} · ${esc(batch.roastStyle || "浅烘")}</span>
-    <strong>${drop ? fmt(drop.seconds) : fmt(batch.duration || 0)}</strong>
-    <small>1ハゼ ${crack ? fmt(crack.seconds) : "—"} · 発展 ${development} · 水分減少率 ${loss}</small>
-  </button>`;
+  return `<article class="same-bean-card">
+    <button type="button" data-batch-detail="${batch.id}">
+      <span>${displayDate(batch.date)} · #${esc(batch.roastNo || "?")} · ${esc(batch.roastStyle || "浅烘")}</span>
+      <strong>${drop ? fmt(drop.seconds) : fmt(batch.duration || 0)}</strong>
+      <small>1ハゼ ${crack ? fmt(crack.seconds) : "—"} · 発展 ${development} · 水分減少率 ${loss}</small>
+    </button>
+    ${currentId ? `<button type="button" class="same-bean-compare" data-same-compare="${esc(currentId)}" data-same-with="${esc(batch.id)}">和当前对比</button>` : ""}
+  </article>`;
 }
 
 function csvCells(line = "") {
@@ -1206,6 +1304,7 @@ function dataGroupKey(batch, mode) {
   const b = bean(batch.beanId);
   if (mode === "country") return b.country || "未填写国家";
   if (mode === "variety") return b.variety || "未填写品种";
+  if (mode === "bean") return b.name || "未填写豆子";
   return displayDate(batch.date).slice(0, 7);
 }
 
@@ -1226,14 +1325,43 @@ function dataLibrary() {
   const groups = groupedBatches(groupMode, sorted);
   const selected = state.dataFolder && groups.some(([name]) => name === state.dataFolder) ? state.dataFolder : groups[0]?.[0];
   const selectedBatches = selected ? groups.find(([name]) => name === selected)?.[1] || [] : sorted;
+  const reviewBeans = beanReviewItems();
   return shell(`${backBar("本机数据")}
     <div class="eyebrow">Roast Library</div><h1>把每一炉数据，<br>整理成可以回看的档案。</h1>
-    <section class="section"><div class="data-actions"><button class="data-action-card" data-route="compare"><strong>批次对比</strong><small>选择两炉，比较曲线与关键节点。</small><em>打开 ›</em></button><div class="data-action-card"><strong>${state.batches.length}</strong><small>已保存批次</small><em>仅保存在本机</em></div></div></section>
+    <section class="section"><div class="data-actions"><button class="data-action-card" data-route="compare"><strong>批次对比</strong><small>选择两炉，比较曲线与关键节点。</small><em>打开 ›</em></button><button class="data-action-card" data-route="review"><strong>同豆复盘</strong><small>找出同一支豆子的重复烘焙。</small><em>${reviewBeans.length ? "查看 ›" : "准备中"}</em></button><div class="data-action-card"><strong>${state.batches.length}</strong><small>已保存批次</small><em>仅保存在本机</em></div></div></section>
     <section class="section">
-      <div class="library-switch data-switch"><button class="${groupMode === "time" ? "active" : ""}" data-data-group="time">按时间</button><button class="${groupMode === "country" ? "active" : ""}" data-data-group="country">按国家</button><button class="${groupMode === "variety" ? "active" : ""}" data-data-group="variety">按品种</button></div>
+      <div class="library-switch data-switch"><button class="${groupMode === "time" ? "active" : ""}" data-data-group="time">按时间</button><button class="${groupMode === "country" ? "active" : ""}" data-data-group="country">按国家</button><button class="${groupMode === "variety" ? "active" : ""}" data-data-group="variety">按品种</button><button class="${groupMode === "bean" ? "active" : ""}" data-data-group="bean">按豆子</button></div>
       <div class="folder-shelf">${groups.length ? groups.map(([name, items]) => `<button class="floating-folder ${name === selected ? "active" : ""}" data-data-folder="${esc(name)}"><span>▰</span><strong>${esc(name)}</strong><small>${items.length} 炉</small></button>`).join("") : `<div class="empty card">还没有完成的批次。</div>`}</div>
     </section>
     <section class="section"><div class="section-head"><h2>${esc(selected || "全部批次")}</h2>${select("排序", "dataSort", sort, [["newest","最新优先"],["oldest","最早优先"],["bean","按咖啡豆"]])}</div><div class="list">${selectedBatches.length ? selectedBatches.map(batchCard).join("") : `<div class="empty card">还没有完成的批次。</div>`}</div></section>`, "data");
+}
+
+function beanReviewItems() {
+  return state.beans.map((item) => {
+    const summary = sameBeanSummary(item.id);
+    return { bean: item, ...summary };
+  }).filter((item) => item.count > 1).sort((a, b) => (b.batches[0]?.completedAt || 0) - (a.batches[0]?.completedAt || 0));
+}
+
+function beanReviewCard(item) {
+  const latest = item.batches[0];
+  return `<article class="review-bean-card">
+    <button type="button" data-batch-detail="${latest.id}">
+      <span>复盘对象</span>
+      <h3>${esc(item.bean.name)}</h3>
+      <p>${esc(item.bean.country)} · ${esc(item.bean.variety)} · ${esc(item.bean.process)}</p>
+      <div><b>${item.count}</b><small>已记录</small><b>${item.avgDuration}</b><small>平均出豆</small><b>${item.avgDevelopment}</b><small>平均发展</small><b>${item.avgLoss}</b><small>平均水分减少率</small></div>
+    </button>
+  </article>`;
+}
+
+function beanReview() {
+  const items = beanReviewItems();
+  return shell(`${backBar("同豆复盘")}
+    <div class="eyebrow">Bean Review</div><h1>同一支豆子，<br>每一炉都能对照。</h1>
+    <section class="section"><div class="section-head"><h2>复盘对象</h2><span class="subtle">${items.length} 组</span></div>
+      <div class="review-bean-list">${items.length ? items.map(beanReviewCard).join("") : `<div class="empty card">至少保存同一支豆子的两炉后，这里会显示可复盘对象。</div>`}</div>
+    </section>`, "review");
 }
 
 function search() {
@@ -1434,7 +1562,7 @@ function about() {
 
 function render() {
   clearInterval(interval);
-  const pages = { home, new: newBatch, manual: manualBatch, live, data: dataLibrary, search, machines, compare, "machine-edit": machineEdit, "bean-edit": beanEdit, "batch-detail": batchDetail, settings, about };
+  const pages = { home, new: newBatch, manual: manualBatch, live, data: dataLibrary, search, machines, compare, review: beanReview, "machine-edit": machineEdit, "bean-edit": beanEdit, "batch-detail": batchDetail, settings, about };
   app.innerHTML = (pages[state.route] || home)();
   translatePage();
   bind();
@@ -1608,7 +1736,7 @@ function bind() {
     if (el.dataset.route === "manual") { state.manualDraft = null; state.manualRows = null; state.editBatchId = null; }
     state.route = el.dataset.route; save(); render();
   }));
-  document.querySelector("[data-back]")?.addEventListener("click", () => { state.route = state.returnRoute || (state.route === "machine-edit" ? "machines" : state.route === "bean-edit" ? "search" : state.route === "compare" ? "data" : state.route === "about" ? "settings" : "home"); state.returnRoute = null; save(); render(); });
+  document.querySelector("[data-back]")?.addEventListener("click", () => { state.route = state.returnRoute || (state.route === "machine-edit" ? "machines" : state.route === "bean-edit" ? "search" : state.route === "compare" || state.route === "review" ? "data" : state.route === "about" ? "settings" : "home"); state.returnRoute = null; save(); render(); });
   bindTimeInputs();
   document.querySelector('[name="date"]')?.addEventListener("change", (e) => {
     const display = e.target.closest(".date-control")?.querySelector("[data-date-display]");
@@ -1694,6 +1822,7 @@ function bind() {
   });
   document.querySelectorAll("[data-delete-entry]").forEach((el) => el.addEventListener("click", () => { state.active.entries = state.active.entries.filter((x) => x.id !== el.dataset.deleteEntry); save(); render(); }));
   document.querySelectorAll("[data-batch-detail]").forEach((el) => el.addEventListener("click", () => { state.detailBatchId = el.dataset.batchDetail; state.route = "batch-detail"; save(); render(); }));
+  document.querySelectorAll("[data-same-compare]").forEach((el) => el.addEventListener("click", () => { state.compareA = el.dataset.sameCompare; state.compareB = el.dataset.sameWith; state.route = "compare"; save(); render(); }));
   document.querySelectorAll("[data-delete-batch]").forEach((el) => el.addEventListener("click", () => { if (!confirm("确定删除这个批次吗？")) return; state.batches = state.batches.filter((batch) => batch.id !== el.dataset.deleteBatch); save(); render(); toast("批次已删除"); }));
   document.querySelectorAll("[data-folder-filter]").forEach((el) => el.addEventListener("click", () => { state.homeFolder = el.dataset.folderFilter; save(); render(); }));
   document.querySelector("[data-add-folder]")?.addEventListener("click", () => { const name = prompt("新文件夹名称"); if (!name?.trim()) return; if (!state.folders.includes(name.trim())) state.folders.push(name.trim()); state.homeFolder = name.trim(); save(); render(); });
@@ -1781,5 +1910,5 @@ function bind() {
 }
 
 setupAnalytics();
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=64");
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js?v=65");
 render();

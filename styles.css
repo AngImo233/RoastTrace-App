@@ -54,7 +54,7 @@ p { margin: 0; }
 .data-entry-card b, .data-action-card strong { font-size: 24px; letter-spacing: -.03em; }
 .data-entry-card small, .data-action-card small { color: var(--muted); line-height: 1.5; }
 .data-entry-card em, .data-action-card em { color: var(--caramel); font-size: 12px; font-style: normal; font-weight: 800; }
-.data-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.data-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
 .data-switch { grid-template-columns: repeat(3, 1fr); margin-top: 0; }
 .folder-shelf { display: flex; gap: 12px; overflow-x: auto; margin-top: 14px; padding: 8px 2px 18px; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .folder-shelf::-webkit-scrollbar { display: none; }
@@ -316,11 +316,33 @@ p { margin: 0; }
 .detail-tag b { font-size: 12px; }
 .detail-tag small { color: var(--muted); font-size: 11px; font-weight: 800; }
 .compact-empty { width: 100%; padding: 18px; border: 1px dashed var(--line); border-radius: 16px; background: var(--cream); }
+.same-bean-review { display: grid; gap: 10px; }
+.same-bean-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.same-bean-stats div { display: grid; gap: 5px; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--cream); }
+.same-bean-stats span, .same-bean-delta span { color: var(--muted); font-size: 10px; font-weight: 850; }
+.same-bean-stats strong { color: var(--coffee); font-size: 18px; }
+.same-bean-delta { display: grid; gap: 8px; padding: 13px; border: 1px solid var(--line); border-radius: 16px; background: #fffaf3; }
+.same-bean-delta > div { display: flex; justify-content: space-between; gap: 12px; }
+.same-bean-delta b { color: var(--coffee); font-size: 12px; }
+.same-bean-delta p { display: flex; justify-content: space-between; gap: 12px; margin: 0; padding-top: 7px; border-top: 1px solid var(--line); }
+.same-bean-delta strong { color: var(--caramel); font-size: 12px; }
 .same-bean-list { display: grid; gap: 8px; }
-.same-bean-card { display: grid; width: 100%; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; padding: 13px 14px; border: 1px solid var(--line); border-radius: 15px; background: var(--cream); color: var(--coffee); text-align: left; }
+.same-bean-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 15px; background: var(--cream); color: var(--coffee); }
+.same-bean-card > button:first-child { display: grid; width: 100%; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; color: var(--coffee); text-align: left; }
 .same-bean-card span { color: var(--muted); font-size: 11px; font-weight: 800; }
 .same-bean-card strong { grid-row: span 2; align-self: center; padding: 6px 10px; border-radius: 999px; background: var(--paper-deep); font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 15px; }
 .same-bean-card small { color: var(--coffee); font-size: 12px; line-height: 1.45; }
+.same-bean-compare { align-self: center; min-height: 34px; padding: 0 10px; border-radius: 999px; background: var(--coffee); color: white; font-size: 11px; font-weight: 850; white-space: nowrap; }
+.review-bean-list { display: grid; gap: 10px; }
+.review-bean-card { border: 1px solid var(--line); border-radius: 17px; background: var(--cream); }
+.review-bean-card button { display: grid; width: 100%; gap: 7px; padding: 15px; color: var(--coffee); text-align: left; }
+.review-bean-card span { color: var(--caramel); font-size: 11px; font-weight: 850; }
+.review-bean-card h3 { color: var(--coffee); font-size: 20px; }
+.review-bean-card p { color: var(--muted); font-size: 12px; line-height: 1.45; }
+.review-bean-card div { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 4px; }
+.review-bean-card b, .review-bean-card small { display: grid; align-items: center; min-height: 28px; }
+.review-bean-card b { color: var(--coffee); font-size: 15px; }
+.review-bean-card small { color: var(--muted); font-size: 10px; font-weight: 800; }
 .about-entry-card { display: grid; width: 100%; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--cream); color: var(--coffee); text-align: left; box-shadow: 0 8px 18px rgba(72,46,34,.05); }
 .about-entry-card span { display: grid; gap: 5px; }
 .about-entry-card b { font-size: 18px; }
@@ -452,6 +474,9 @@ p { margin: 0; }
 @media (max-width: 430px) {
   .summary-hero { grid-template-columns: repeat(2, 1fr); }
   .summary-hero strong { font-size: 20px; }
+  .same-bean-card { grid-template-columns: 1fr; }
+  .same-bean-compare { width: 100%; }
+  .review-bean-card div { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media print {

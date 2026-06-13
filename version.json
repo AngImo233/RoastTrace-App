@@ -1,5 +1,5 @@
 {
-  "version": "V1.12",
-  "releasedAt": "2026-06-12",
-  "notes": "Added anonymous user open-count analytics without uploading roast data."
+  "version": "V1.13",
+  "releasedAt": "2026-06-14",
+  "notes": "Added same-bean review with per-bean summaries, previous-batch deltas, and quick comparison."
 }
